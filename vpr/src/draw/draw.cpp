@@ -2749,8 +2749,8 @@ static void draw_pin_to_chan_edge(int pin_node, int chan_node) {
     const t_grid_tile& grid_tile = device_ctx.grid[pin_rr.xlow()][pin_rr.ylow()];
 	t_type_ptr grid_type = grid_tile.type;
 
-    VTR_ASSERT_MSG(grid_type->pinloc[grid_tile.width_offset][grid_tile.height_offset][pin_rr.side()][pin_rr.pin_num()],
-                   "Pin coordinates should match block type pin locations");
+    /*VTR_ASSERT_MSG(grid_type->pinloc[grid_tile.width_offset][grid_tile.height_offset][pin_rr.side()][pin_rr.pin_num()],
+                   "Pin coordinates should match block type pin locations");*/
 
     float draw_pin_offset;
     if (pin_rr.side() == TOP || pin_rr.side() == RIGHT) {
