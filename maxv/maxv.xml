@@ -33,18 +33,26 @@
     </segmentlist>
     <complexblocklist>
         <pb_type name="lab">
-            <input name="dataa" num_pins="1"/>
-            <input name="datab" num_pins="1"/>
-            <input name="datac" num_pins="1"/>
-            <input name="datad" num_pins="1"/>
             <output name="combout" num_pins="1"/>
+            <input name="lab_line" num_pins="26"/>
+            <output name="lab_outputs" num_pins="20"/>
+            <input name="cin" num_pins="1"/>
+            <output name="cout" num_pins="1"/>
+            <clock name="gclk" num_pins="4"/>
 
-            <pb_type name="lut" num_pb="1">
+            <fc in_type="frac" in_val="0.1" out_type="frac" out_val="0.1">
+                <fc_override fc_type="abs" fc_val="0" port_name="cin"/>
+                <fc_override fc_type="abs" fc_val="0" port_name="cout"/>
+            </fc>
+
+            <pb_type name="lut" num_pb="10">
                 <input name="dataa" num_pins="1"/>
                 <input name="datab" num_pins="1"/>
                 <input name="datac" num_pins="1"/>
                 <input name="datad" num_pins="1"/>
+                <input name="inverta" num_pins="1"/>
                 <output name="combout" num_pins="1"/>
+                <output name="cout" num_pins="1"/>
 
                 <pb_type name="lut_blif" blif_model=".names" class="lut" num_pb="1">
                     <input name="in" num_pins="4" port_class="lut_in"/>
@@ -61,11 +69,12 @@
             </pb_type>
 
             <interconnect>
-                <direct name="dataa" input="lab.dataa" output="lut.dataa"/>
-                <direct name="datab" input="lab.datab" output="lut.datab"/>
-                <direct name="datac" input="lab.datac" output="lut.datac"/>
-                <direct name="datad" input="lab.datad" output="lut.datad"/>
-                <direct name="combout" input="lut.combout" output="lab.combout"/>
+                <!-- Local line to LUT input -->
+                <mux name="lut0_dataa" output="lut[0].dataa" input="lab.lab_line[0] lab.lab_line[1] lab.lab_line[3] lab.lab_line[6]  lab.lab_line[8] lab.lab_line[9]  lab.lab_line[11] lab.lab_line[14] lab.lab_line[15] lab.lab_line[18] lab.lab_line[19] lab.lab_line[22] lab.lab_line[25]"/>
+                <mux name="lut0_datab" output="lut[0].datab" input="lab.lab_line[2] lab.lab_line[4] lab.lab_line[5] lab.lab_line[7] lab.lab_line[10] lab.lab_line[12] lab.lab_line[13] lab.lab_line[16] lab.lab_line[17] lab.lab_line[20] lab.lab_line[21] lab.lab_line[23] lab.lab_line[24]"/>
+                <mux name="lut0_datac" output="lut[0].datac" input="lab.lab_line[0] lab.lab_line[2] lab.lab_line[3] lab.lab_line[7] lab.lab_line[8]  lab.lab_line[9]  lab.lab_line[11] lab.lab_line[14] lab.lab_line[17] lab.lab_line[18] lab.lab_line[21] lab.lab_line[22] lab.lab_line[25]"/>
+                <mux name="lut0_datad" output="lut[0].datad" input="lab.lab_line[1] lab.lab_line[4] lab.lab_line[5] lab.lab_line[6] lab.lab_line[10] lab.lab_line[12] lab.lab_line[13] lab.lab_line[15] lab.lab_line[16] lab.lab_line[19] lab.lab_line[20] lab.lab_line[23] lab.lab_line[24]"/>
+                <direct name="combout" input="lut[0].combout" output="lab.combout"/>
             </interconnect>
         </pb_type>
 
