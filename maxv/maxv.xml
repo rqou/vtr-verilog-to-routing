@@ -135,11 +135,10 @@
         </pb_type>
 
         <pb_type name="col_io_tile">
-            <input name="datain" num_pins="1"/>
-            <input name="oe" num_pins="1"/>
-            <output name="combout" num_pins="1"/>
+            <input name="local_line" num_pins="10"/>
+            <output name="io_outputs" num_pins="4"/>
 
-            <pb_type name="io" num_pb="1">
+            <pb_type name="io" num_pb="4">
                 <input name="datain" num_pins="1"/>
                 <input name="oe" num_pins="1"/>
                 <output name="combout" num_pins="1"/>
@@ -164,18 +163,20 @@
             </pb_type>
 
             <interconnect>
-                <direct name="datain" input="col_io_tile.datain" output="io.datain"/>
-                <direct name="oe" input="col_io_tile.oe" output="io.oe"/>
-                <direct name="combout" input="io.combout" output="col_io_tile.combout"/>
+                <complete name="outputs" input="col_io_tile.local_line" output="io.datain"/>
+                <complete name="oes" input="col_io_tile.local_line" output="io.oe"/>
+                <direct name="io0_output" input="io[0].combout" output="col_io_tile.io_outputs[0]"/>
+                <direct name="io1_output" input="io[1].combout" output="col_io_tile.io_outputs[1]"/>
+                <direct name="io2_output" input="io[2].combout" output="col_io_tile.io_outputs[2]"/>
+                <direct name="io3_output" input="io[3].combout" output="col_io_tile.io_outputs[3]"/>
             </interconnect>
         </pb_type>
 
         <pb_type name="row_io_tile">
-            <input name="datain" num_pins="1"/>
-            <input name="oe" num_pins="1"/>
-            <output name="combout" num_pins="1"/>
+            <input name="local_line" num_pins="18"/>
+            <output name="io_outputs" num_pins="5"/>
 
-            <pb_type name="io" num_pb="1">
+            <pb_type name="io" num_pb="5">
                 <input name="datain" num_pins="1"/>
                 <input name="oe" num_pins="1"/>
                 <output name="combout" num_pins="1"/>
@@ -200,9 +201,13 @@
             </pb_type>
 
             <interconnect>
-                <direct name="datain" input="row_io_tile.datain" output="io.datain"/>
-                <direct name="oe" input="row_io_tile.oe" output="io.oe"/>
-                <direct name="combout" input="io.combout" output="row_io_tile.combout"/>
+                <complete name="outputs" input="row_io_tile.local_line" output="io.datain"/>
+                <complete name="oes" input="row_io_tile.local_line" output="io.oe"/>
+                <direct name="io0_output" input="io[0].combout" output="row_io_tile.io_outputs[0]"/>
+                <direct name="io1_output" input="io[1].combout" output="row_io_tile.io_outputs[1]"/>
+                <direct name="io2_output" input="io[2].combout" output="row_io_tile.io_outputs[2]"/>
+                <direct name="io3_output" input="io[3].combout" output="row_io_tile.io_outputs[3]"/>
+                <direct name="io4_output" input="io[4].combout" output="row_io_tile.io_outputs[4]"/>
             </interconnect>
         </pb_type>
     </complexblocklist>
