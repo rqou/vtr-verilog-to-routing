@@ -1,0 +1,73 @@
+<architecture>
+    <models>
+    </models>
+    <layout>
+        <fixed_layout name="240le" width="9" height="6">
+        </fixed_layout>
+    </layout>
+    <device>
+        <sizing R_minW_nmos="0" R_minW_pmos="0"/>
+        <area grid_logic_tile_area="0"/>
+        <connection_block input_switch_name="dummysw"/>
+        <switch_block type="wilton" fs="3"/>
+        <default_fc in_type="frac" in_val="0.1" out_type="frac" out_val="0.1"/>
+        <chan_width_distr>
+            <x distr="uniform" peak="1.000000"/>
+            <y distr="uniform" peak="1.000000"/>
+        </chan_width_distr>
+    </device>
+    <switchlist>
+        <switch type="mux" name="dummysw"/>
+    </switchlist>
+    <segmentlist>
+        <segment type="unidir">
+            <mux name="dummysw"/>
+        </segment>
+    </segmentlist>
+    <complexblocklist>
+        <pb_type name="lut">
+            <input name="dataa" num_pins="1"/>
+            <input name="datab" num_pins="1"/>
+            <input name="datac" num_pins="1"/>
+            <input name="datad" num_pins="1"/>
+            <output name="combout" num_pins="1"/>
+
+            <pb_type name="lut_blif" blif_model=".names" class="lut" num_pb="1">
+                <input name="in" num_pins="4" port_class="lut_in"/>
+                <output name="out" num_pins="1" port_class="lut_out"/>
+            </pb_type>
+
+            <interconnect>
+                <direct name="dataa" input="lut.dataa" output="lut_blif.in[0]"/>
+                <direct name="datab" input="lut.datab" output="lut_blif.in[1]"/>
+                <direct name="datac" input="lut.datac" output="lut_blif.in[2]"/>
+                <direct name="datad" input="lut.datad" output="lut_blif.in[3]"/>
+                <direct name="combout" input="lut_blif.out" output="lut.combout"/>
+            </interconnect>
+        </pb_type>
+
+        <pb_type name="io">
+            <input name="datain" num_pins="1"/>
+            <input name="oe" num_pins="1"/>
+            <output name="combout" num_pins="1"/>
+
+            <mode name="blif_simple_in">
+                <pb_type name="simplein" blif_model=".input" num_pb="1">
+                    <output name="inpad" num_pins="1"/>
+                </pb_type>
+                <interconnect>
+                    <direct name="simplein" input="simplein.inpad" output="io.combout"/>
+                </interconnect>
+            </mode>
+
+            <mode name="blif_simple_out">
+                <pb_type name="simpleout" blif_model=".output" num_pb="1">
+                    <input name="outpad" num_pins="1"/>
+                </pb_type>
+                <interconnect>
+                    <direct name="simpleout" input="io.datain" output="simpleout.outpad"/>
+                </interconnect>
+            </mode>
+        </pb_type>
+    </complexblocklist>
+</architecture>
