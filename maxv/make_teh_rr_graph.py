@@ -513,6 +513,28 @@ for dstnode, srcnodes in interconnectinterconnect.items():
         else:
             print("SKIPPED {} -> {}".format(srcnode, dstnode))
 
+# IO local interconnect to output
+for X in [1, 8]:
+    for Y in range(1, 5):
+        for outI in range(5):
+            for llI in range(18):
+                EDGESEDGESEDGES += '<edge src_node="{}" sink_node="{}" switch_id="0"/>\n'.format(
+                    thing_to_node_id_map[('LOCAL_INTERCONNECT', X, Y, llI)],
+                    thing_to_node_id_map[('IO_DATAIN', X, Y, outI)])
+                EDGESEDGESEDGES += '<edge src_node="{}" sink_node="{}" switch_id="0"/>\n'.format(
+                    thing_to_node_id_map[('LOCAL_INTERCONNECT', X, Y, llI)],
+                    thing_to_node_id_map[('OE', X, Y, outI)])
+for X in range(2, 8):
+    for Y in [0, 5]:
+        for outI in range(4):
+            for llI in range(10):
+                EDGESEDGESEDGES += '<edge src_node="{}" sink_node="{}" switch_id="0"/>\n'.format(
+                    thing_to_node_id_map[('LOCAL_INTERCONNECT', X, Y, llI)],
+                    thing_to_node_id_map[('IO_DATAIN', X, Y, outI)])
+                EDGESEDGESEDGES += '<edge src_node="{}" sink_node="{}" switch_id="0"/>\n'.format(
+                    thing_to_node_id_map[('LOCAL_INTERCONNECT', X, Y, llI)],
+                    thing_to_node_id_map[('OE', X, Y, outI)])
+
 with open('rrgraph.xml', 'r') as f:
     lines = f.readlines()
 
