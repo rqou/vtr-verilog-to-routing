@@ -473,6 +473,13 @@ def parse_thing(node):
     if node.startswith("D:"):
         x, y, i = parse_xyi(node[2:])
         ret = ('D', x, y, i)
+    if node.startswith("LE_BUFFER:"):
+        x, y, i = parse_xysi(node[10:])
+        ret =  ('LE_BUFFER', x, y, i)
+    if node.startswith("LOCAL_INTERCONNECT:"):
+        x, y, i = parse_xysi(node[19:])
+        if x != 1 and x != 8 and y != 0 and y != 5:
+            ret =  ('LOCAL_INTERCONNECT', x, y, i)
 
     if ret is None:
         return None
@@ -491,6 +498,8 @@ for dstnode, srcnodes in interconnectinterconnect.items():
         if srcthing is not None and dstthing is not None:
             print("{} -> {}".format(srcnode, dstnode))
             EDGESEDGESEDGES += '<edge src_node="{}" sink_node="{}" switch_id="0"/>\n'.format(srcthing, dstthing)
+        else:
+            print("SKIPPED {} -> {}".format(srcnode, dstnode))
 
 with open('rrgraph.xml', 'r') as f:
     lines = f.readlines()
