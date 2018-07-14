@@ -563,3 +563,7 @@ with open('rrgraph-newnew.xml', 'w') as f:
             f.write(NODESNODESNODES)
         if "~+~+~+ PUT EDGES HERE +~+~+~" in l:
             f.write(EDGESEDGESEDGES)
+
+
+with open('rrgraph-construction-node-to-thing-map.json', 'w') as f:
+    json.dump(node_id_to_thing_map, f)
