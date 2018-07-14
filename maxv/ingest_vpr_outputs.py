@@ -92,6 +92,39 @@ for node in netroot:
     if node.tag == "block":
         if node.attrib['instance'].startswith('lab'):
             print('LAB {}'.format(node.attrib['name']))
+            labloc = placeplaceplace[node.attrib['name']]
+            # print(labloc)
+            for node in node:
+                if node.tag == "block" and node.attrib['instance'].startswith('lut'):
+                    # print(node.attrib['instance'])
+                    # print(node.attrib['instance'].startswith('lut'))
+
+                    lutidx = node.attrib['instance'][4]
+                    # print(lutidx)
+
+                    for node in node:
+                        if node.tag == "inputs":
+                            for node in node:
+                                # print(node.attrib)
+                                inpname = node.attrib['name']
+                                # print(inpname)
+                                if inpname == "dataa" or inpname == "datab" or inpname == "datac" or inpname == "datad":
+                                    inpval = node.text
+                                    if inpval != "open":
+                                        # print(inpname, inpval)
+                                        # TODO: datac/datad special cases
+                                        assert inpval.startswith('lab.lab_line')
+                                        inpval = inpval[13:].split(']')[0]
+                                        # print(inpval)
+                                        OUTOUTOUT += "LOCAL_INTERCONNECT:X{}Y{}S0I{} -> LUT{}:{}\n".format(
+                                            labloc[0], labloc[1], inpval, lutidx, inpname.upper())
+                                elif inpname == "cin":
+                                    ...
+                                elif inpname == "inverta":
+                                    ...
+                                else:
+                                    assert False
+
         elif node.attrib['instance'].startswith('row_io_tile') or node.attrib['instance'].startswith('col_io_tile'):
             print('IO {}'.format(node.attrib['name']))
             loc = placeplaceplace[node.attrib['name']]
