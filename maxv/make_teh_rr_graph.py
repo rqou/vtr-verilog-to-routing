@@ -87,17 +87,96 @@ for X in range(1, 8):
         for I in range(8):
             nodeidx = len(node_id_to_thing_map)
 
-            ptcval = PTCPTC.get(('R', X, Y), 0)
-            PTCPTC[('R', X, Y)] = ptcval + 1
-
             node_id_to_thing_map.append(('R', X, Y, I))
             thing_to_node_id_map[('R', X, Y, I)] = nodeidx
+
+            endX = min(X + 4, 7)
+
+            ptcval = None
+            for i in range(64):
+                usedinany = False
+                for j in range(X, endX + 1):
+                    usedindices = PTCPTC.get(('R', j, Y), [])
+                    if i in usedindices:
+                        usedinany = True
+                        break
+                if not usedinany:
+                    ptcval = i
+                    break
+            assert ptcval is not None
+
+            for i in range(X, endX + 1):
+                if ('R', i, Y) not in PTCPTC:
+                    PTCPTC[('R', i, Y)] = set()
+                PTCPTC[('R', i, Y)].add(ptcval)
 
             NODESNODESNODES += """<node id="{}" type="CHANX" direction="INC_DIR" capacity="1">
     <loc xlow="{}" ylow="{}" xhigh="{}" yhigh="{}" ptc="{}"/>
     <segment segment_id="0"/>
 </node>
-""".format(nodeidx, X, Y, min(X + 4, 7), Y, ptcval)
+""".format(nodeidx, X, Y, endX, Y, ptcval)
+
+# L wires
+for X in range(2, 8):
+    for Y in range(1, 5):
+        for I in range(8):
+            nodeidx = len(node_id_to_thing_map)
+
+            node_id_to_thing_map.append(('L', X, Y, I))
+            thing_to_node_id_map[('L', X, Y, I)] = nodeidx
+
+            startX = max(X - 4, 1)
+
+            ptcval = None
+            for i in range(64):
+                usedinany = False
+                for j in range(startX, X + 1):
+                    usedindices = PTCPTC.get(('L', j, Y), [])
+                    if i in usedindices:
+                        usedinany = True
+                        break
+                if not usedinany:
+                    ptcval = i
+                    break
+            assert ptcval is not None
+
+            for i in range(startX, X + 1):
+                if ('L', i, Y) not in PTCPTC:
+                    PTCPTC[('L', i, Y)] = set()
+                PTCPTC[('L', i, Y)].add(ptcval)
+
+            NODESNODESNODES += """<node id="{}" type="CHANX" direction="DEC_DIR" capacity="1">
+    <loc xlow="{}" ylow="{}" xhigh="{}" yhigh="{}" ptc="{}"/>
+    <segment segment_id="0"/>
+</node>
+""".format(nodeidx, startX, Y, X, Y, ptcval)
+
+# L2 wires
+X = 7
+for Y in range(1, 5):
+    for I in range(8):
+        nodeidx = len(node_id_to_thing_map)
+
+        node_id_to_thing_map.append(('L2', X, Y, I))
+        thing_to_node_id_map[('L2', X, Y, I)] = nodeidx
+
+        ptcval = None
+        for i in range(64):
+            usedindices = PTCPTC.get(('L', j, Y), [])
+            if i not in usedindices:
+                ptcval = i
+                break
+        assert ptcval is not None
+
+        if ('L', X, Y) not in PTCPTC:
+            PTCPTC[('L', X, Y)] = set()
+        PTCPTC[('L', X, Y)].add(ptcval)
+
+        NODESNODESNODES += """<node id="{}" type="CHANX" direction="DEC_DIR" capacity="1">
+    <loc xlow="{}" ylow="{}" xhigh="{}" yhigh="{}" ptc="{}"/>
+    <segment segment_id="0"/>
+</node>
+""".format(nodeidx, X, Y, X, Y, ptcval)
 
 for i in range(len(node_id_to_thing_map)):
     print("Node {} is {}".format(i, node_id_to_thing_map[i]))
