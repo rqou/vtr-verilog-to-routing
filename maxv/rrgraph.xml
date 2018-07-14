@@ -12278,10 +12278,6 @@
 		</node>
 
 		<!-- ~+~+~+ PUT CHANNELS HERE +~+~+~ -->
-		<node id="3024" type="CHANX" direction="INC_DIR" capacity="1">
-			<loc xlow="1" ylow="1" xhigh="1" yhigh="1" ptc="0"/>
-			<segment segment_id="0"/>
-		</node>
 
 	</rr_nodes>
 

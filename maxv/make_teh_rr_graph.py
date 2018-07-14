@@ -78,5 +78,37 @@ assert len(thing_to_node_id_map) == 3024
 # print(node_id_to_thing_map)
 # print(thing_to_node_id_map)
 
+NODESNODESNODES = ''
+PTCPTC = {}
+
+# R wires
+for X in range(1, 8):
+    for Y in range(1, 5):
+        for I in range(8):
+            nodeidx = len(node_id_to_thing_map)
+
+            ptcval = PTCPTC.get(('R', X, Y), 0)
+            PTCPTC[('R', X, Y)] = ptcval + 1
+
+            node_id_to_thing_map.append(('R', X, Y, I))
+            thing_to_node_id_map[('R', X, Y, I)] = nodeidx
+
+            NODESNODESNODES += """<node id="{}" type="CHANX" direction="INC_DIR" capacity="1">
+    <loc xlow="{}" ylow="{}" xhigh="{}" yhigh="{}" ptc="{}"/>
+    <segment segment_id="0"/>
+</node>
+""".format(nodeidx, X, Y, min(X + 4, 7), Y, ptcval)
+
 for i in range(len(node_id_to_thing_map)):
     print("Node {} is {}".format(i, node_id_to_thing_map[i]))
+
+# print(NODESNODESNODES)
+
+with open('rrgraph.xml', 'r') as f:
+    lines = f.readlines()
+
+with open('rrgraph-newnew.xml', 'w') as f:
+    for l in lines:
+        f.write(l)
+        if "~+~+~+ PUT CHANNELS HERE +~+~+~" in l:
+            f.write(NODESNODESNODES)
