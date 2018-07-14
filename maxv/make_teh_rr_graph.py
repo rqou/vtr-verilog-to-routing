@@ -178,6 +178,75 @@ for Y in range(1, 5):
 </node>
 """.format(nodeidx, X, Y, X, Y, ptcval)
 
+# U wires
+for X in range(1, 8):
+    Y = 0
+    for I in range(10):
+        nodeidx = len(node_id_to_thing_map)
+
+        node_id_to_thing_map.append(('U', X, Y, I))
+        thing_to_node_id_map[('U', X, Y, I)] = nodeidx
+
+        endY = 4 if I < 7 else 1
+
+        ptcval = None
+        for i in range(56):
+            usedinany = False
+            for j in range(Y, endY + 1):
+                usedindices = PTCPTC.get(('U', X, j), [])
+                if i in usedindices:
+                    usedinany = True
+                    break
+            if not usedinany:
+                ptcval = i
+                break
+        assert ptcval is not None
+
+        for i in range(Y, endY + 1):
+            if ('U', X, i) not in PTCPTC:
+                PTCPTC[('U', X, i)] = set()
+            PTCPTC[('U', X, i)].add(ptcval)
+
+        NODESNODESNODES += """<node id="{}" type="CHANY" direction="INC_DIR" capacity="1">
+    <loc xlow="{}" ylow="{}" xhigh="{}" yhigh="{}" ptc="{}"/>
+    <segment segment_id="0"/>
+</node>
+""".format(nodeidx, X, 1, X, endY, ptcval)
+
+for X in range(1, 8):
+    for Y in range(1, 5):
+        for I in range(7):
+            nodeidx = len(node_id_to_thing_map)
+
+            node_id_to_thing_map.append(('U', X, Y, I))
+            thing_to_node_id_map[('U', X, Y, I)] = nodeidx
+
+            endY = min(Y + 4, 4)
+
+            ptcval = None
+            for i in range(56):
+                usedinany = False
+                for j in range(Y, endY + 1):
+                    usedindices = PTCPTC.get(('U', X, j), [])
+                    if i in usedindices:
+                        usedinany = True
+                        break
+                if not usedinany:
+                    ptcval = i
+                    break
+            assert ptcval is not None
+
+            for i in range(Y, endY + 1):
+                if ('U', X, i) not in PTCPTC:
+                    PTCPTC[('U', X, i)] = set()
+                PTCPTC[('U', X, i)].add(ptcval)
+
+            NODESNODESNODES += """<node id="{}" type="CHANY" direction="INC_DIR" capacity="1">
+    <loc xlow="{}" ylow="{}" xhigh="{}" yhigh="{}" ptc="{}"/>
+    <segment segment_id="0"/>
+</node>
+""".format(nodeidx, X, Y, X, endY, ptcval)
+
 for i in range(len(node_id_to_thing_map)):
     print("Node {} is {}".format(i, node_id_to_thing_map[i]))
 
