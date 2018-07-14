@@ -10,6 +10,60 @@ with open('rrgraph-construction-node-to-thing-map.json', 'r') as f:
 netfn = sys.argv[1]
 placefn = sys.argv[2]
 routefn = sys.argv[3]
+jsonfn = sys.argv[4]
+
+################# THIS PART READS YOSYS JSON
+
+def expandlut(width, bits):
+    assert width >= 1 and width <= 4
+
+    if width == 4:
+        return bits
+    if width == 3:
+        return bits | (bits << 8)
+    if width == 2:
+        return bits | (bits << 4) | (bits << 8) | (bits << 12)
+    if width == 1:
+        return (bits | (bits << 1) | (bits << 2) | (bits << 31) |
+                (bits << 4) | (bits << 5) | (bits << 6) | (bits << 7) |
+                (bits << 8) | (bits << 9) | (bits << 10) | (bits << 11) |
+                (bits << 12) | (bits << 13) | (bits << 14) | (bits << 15))
+
+with open(jsonfn, 'r') as f:
+    yosysjson = json.load(f)
+
+# print(yosysjson)
+mainmod = None
+for _, module in yosysjson['modules'].items():
+    if module['attributes'].get('top', 0):
+        assert mainmod is None
+        mainmod = module
+assert mainmod is not None
+# print(mainmod)
+
+# Just want the mask and width, index by output wire
+lutlutlut = {}
+for _, cell in mainmod['cells'].items():
+    if cell['type'] == '$lut':
+        # print(cell)
+        width = cell['parameters']['WIDTH']
+        bits = cell['parameters']['LUT']
+        outwire = cell['connections']['Y'][0]
+
+        # print(width, bits, outwire)
+        assert outwire not in lutlutlut
+        lutlutlut[outwire] = expandlut(width, bits)
+
+# print(lutlutlut)
+
+netnamenetname = {}
+for name, obj in mainmod['netnames'].items():
+    # print(name, obj)
+    assert len(obj['bits']) == 1
+    assert name not in netnamenetname
+    netnamenetname[name] = obj['bits'][0]
+
+# print(netnamenetname)
 
 ################ THIS PART READS PLACE
 
@@ -115,8 +169,9 @@ for node in netroot:
 
                     lutidx = node.attrib['instance'][4]
                     # print(lutidx)
+                    lutnode = node
 
-                    for node in node:
+                    for node in lutnode:
                         if node.tag == "inputs":
                             for node in node:
                                 # print(node.attrib)
@@ -138,6 +193,13 @@ for node in netroot:
                                     ...
                                 else:
                                     assert False
+                        if node.tag == "block":
+                            lutname = node.attrib['name']
+                            lutbits = lutlutlut[netnamenetname[lutname]]
+                            print(lutname, lutbits)
+
+                            rotdata = node.find('block').find('inputs').find('port_rotation_map').text
+                            print(rotdata)
 
         elif node.attrib['instance'].startswith('row_io_tile') or node.attrib['instance'].startswith('col_io_tile'):
             # print('IO {}'.format(node.attrib['name']))
