@@ -213,7 +213,8 @@ for X in range(1, 8):
         node_id_to_thing_map.append(('U', adjX, Y, adjI))
         thing_to_node_id_map[('U', adjX, Y, adjI)] = nodeidx
 
-        endY = 4 if I < 7 else 1
+        # endY = 4 if I < 7 else 1
+        endY = 4
 
         ptcval = None
         for i in range(56):
@@ -304,7 +305,8 @@ for X in range(1, 8):
         node_id_to_thing_map.append(('D', adjX, Y, adjI))
         thing_to_node_id_map[('D', adjX, Y, adjI)] = nodeidx
 
-        startY = 1 if I < 7 else 4
+        # startY = 1 if I == 6 or I == 8 or I == 9 else 4
+        startY = 1
 
         ptcval = None
         for i in range(56):
@@ -534,6 +536,22 @@ for X in range(2, 8):
                 EDGESEDGESEDGES += '<edge src_node="{}" sink_node="{}" switch_id="0"/>\n'.format(
                     thing_to_node_id_map[('LOCAL_INTERCONNECT', X, Y, llI)],
                     thing_to_node_id_map[('OE', X, Y, outI)])
+
+# top/bottom to connections
+Y = 5
+for X in range(2, 8):
+    for pinI in range(4):
+        for outI in [[4, 2, 0, 9, 7, 5], [0, 3, 5, 8], [1, 2, 6, 7], [1, 3, 4, 6, 8, 9]][pinI]:
+            EDGESEDGESEDGES += '<edge src_node="{}" sink_node="{}" switch_id="0"/>\n'.format(
+                thing_to_node_id_map[('IO_DATAOUT', X, Y, pinI)],
+                thing_to_node_id_map[('D', X, Y, outI)])
+Y = 0
+for X in range(2, 8):
+    for pinI in range(4):
+        for outI in [[4, 2, 0, 9, 7, 5], [1, 4, 6, 9], [2, 3, 7, 8], [0, 1, 3, 5, 6, 8]][pinI]:
+            EDGESEDGESEDGES += '<edge src_node="{}" sink_node="{}" switch_id="0"/>\n'.format(
+                thing_to_node_id_map[('IO_DATAOUT', X, Y, pinI)],
+                thing_to_node_id_map[('U', X, Y, outI)])
 
 with open('rrgraph.xml', 'r') as f:
     lines = f.readlines()
