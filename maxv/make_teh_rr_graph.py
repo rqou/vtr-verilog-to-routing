@@ -161,8 +161,8 @@ for Y in range(1, 5):
     for I in range(8):
         nodeidx = len(node_id_to_thing_map)
 
-        node_id_to_thing_map.append(('L2', X, Y, I))
-        thing_to_node_id_map[('L2', X, Y, I)] = nodeidx
+        node_id_to_thing_map.append(('L2', X + 1, Y, I))
+        thing_to_node_id_map[('L2', X + 1, Y, I)] = nodeidx
 
         ptcval = None
         for i in range(64):
@@ -394,14 +394,7 @@ for (myX, vtrX) in [(1, 1), (8, 7)]:
 # local interconnect for top/bottom IOs
 for X in range(2, 8):
     for (myY, vtrY) in [(0, 1), (5, 4)]:
-        if X == 1:
-            rrr = range(0, 5)
-        elif X == 7:
-            rrr = range(5, 10)
-        else:
-            rrr = range(10)
-
-        for I in rrr:
+        for I in range(10):
             nodeidx = len(node_id_to_thing_map)
             vtrX = X - (1 if I < 5 else 0)
 
@@ -467,6 +460,9 @@ def parse_thing(node):
     if node.startswith("L:"):
         x, y, i = parse_xyi(node[2:])
         ret = ('L', x, y, i)
+    if node.startswith("L2:"):
+        x, y, i = parse_xyi(node[3:])
+        ret = ('L2', x, y, i)
     if node.startswith("U:"):
         x, y, i = parse_xyi(node[2:])
         ret = ('U', x, y, i)
@@ -478,8 +474,7 @@ def parse_thing(node):
         ret =  ('LE_BUFFER', x, y, i)
     if node.startswith("LOCAL_INTERCONNECT:"):
         x, y, i = parse_xysi(node[19:])
-        if x != 1 and x != 8 and y != 0 and y != 5:
-            ret =  ('LOCAL_INTERCONNECT', x, y, i)
+        ret =  ('LOCAL_INTERCONNECT', x, y, i)
 
     if ret is None:
         return None
@@ -496,7 +491,7 @@ for dstnode, srcnodes in interconnectinterconnect.items():
         dstthing = parse_thing(dstnode)
 
         if srcthing is not None and dstthing is not None:
-            print("{} -> {}".format(srcnode, dstnode))
+            # print("{} -> {}".format(srcnode, dstnode))
             EDGESEDGESEDGES += '<edge src_node="{}" sink_node="{}" switch_id="0"/>\n'.format(srcthing, dstthing)
         else:
             print("SKIPPED {} -> {}".format(srcnode, dstnode))
