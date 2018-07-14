@@ -452,6 +452,19 @@ def parse_xysi(inp):
 
     return (int(inp[xpos + 1:ypos]), int(inp[ypos + 1:spos]), int(inp[ipos + 1:]))
 
+def parse_xysi2(inp):
+    xpos = inp.find('X')
+    ypos = inp.find('Y')
+    spos = inp.find('S')
+    ipos = inp.find('I')
+
+    assert xpos >= 0
+    assert ypos > xpos
+    assert spos > ypos
+    assert ipos > spos
+
+    return (int(inp[xpos + 1:ypos]), int(inp[ypos + 1:spos]), int(inp[spos + 1:ipos]), int(inp[ipos + 1:]))
+
 def parse_thing(node):
     ret = None
     if node.startswith("R:"):
@@ -475,6 +488,10 @@ def parse_thing(node):
     if node.startswith("LOCAL_INTERCONNECT:"):
         x, y, i = parse_xysi(node[19:])
         ret =  ('LOCAL_INTERCONNECT', x, y, i)
+    if node.startswith("IO_DATAIN:"):
+        x, y, s, _ = parse_xysi2(node[10:])
+        # XXX naming things
+        ret = ('IO_DATAOUT', x, y, s)
 
     if ret is None:
         return None
