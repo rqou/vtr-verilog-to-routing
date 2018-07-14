@@ -445,29 +445,31 @@ static bool check_adjacent(int from_node, int to_node) {
 		if (to_type == IPIN) {
 			num_adj += 1; //adjacent
 		} else if (to_type == CHANX) {
-			from_xhigh = device_ctx.rr_nodes[from_node].xhigh();
-			to_xhigh = device_ctx.rr_nodes[to_node].xhigh();
-			if (from_ylow == to_ylow) {
-				/* UDSD Modification by WMF Begin */
-				/*For Fs > 3, can connect to overlapping wire segment */
-				if (to_xhigh == from_xlow - 1 || from_xhigh == to_xlow - 1) {
-					num_adj++;
-				}
-				/* Overlapping */
-				else {
-					int i;
+			num_adj += 1; //adjacent
+			// from_xhigh = device_ctx.rr_nodes[from_node].xhigh();
+			// to_xhigh = device_ctx.rr_nodes[to_node].xhigh();
+			// if (from_ylow == to_ylow) {
+			// 	/* UDSD Modification by WMF Begin */
+			// 	/*For Fs > 3, can connect to overlapping wire segment */
+			// 	if (to_xhigh == from_xlow - 1 || from_xhigh == to_xlow - 1) {
+			// 		num_adj++;
+			// 	}
+			// 	/* Overlapping */
+			// 	else {
+			// 		int i;
 
-					for (i = from_xlow; i <= from_xhigh; i++) {
-						if (i >= to_xlow && i <= to_xhigh) {
-							num_adj++;
-							break;
-						}
-					}
-				}
-				/* UDSD Modification by WMF End */
-			}
+			// 		for (i = from_xlow; i <= from_xhigh; i++) {
+			// 			if (i >= to_xlow && i <= to_xhigh) {
+			// 				num_adj++;
+			// 				break;
+			// 			}
+			// 		}
+			// 	}
+			// 	/* UDSD Modification by WMF End */
+			// }
 		} else if (to_type == CHANY) {
-			num_adj += chanx_chany_adjacent(from_node, to_node);
+			// num_adj += chanx_chany_adjacent(from_node, to_node);
+			num_adj += 1; //adjacent
 		} else {
 			VTR_ASSERT(0);
 		}
@@ -477,28 +479,30 @@ static bool check_adjacent(int from_node, int to_node) {
 		if (to_type == IPIN) {
 			num_adj += 1; //adjacent
 		} else if (to_type == CHANY) {
-			from_yhigh = device_ctx.rr_nodes[from_node].yhigh();
-			to_yhigh = device_ctx.rr_nodes[to_node].yhigh();
-			if (from_xlow == to_xlow) {
-				/* UDSD Modification by WMF Begin */
-				if (to_yhigh == from_ylow - 1 || from_yhigh == to_ylow - 1) {
-					num_adj++;
-				}
-				/* Overlapping */
-				else {
-					int j;
+			num_adj += 1; //adjacent
+			// from_yhigh = device_ctx.rr_nodes[from_node].yhigh();
+			// to_yhigh = device_ctx.rr_nodes[to_node].yhigh();
+			// if (from_xlow == to_xlow) {
+			// 	/* UDSD Modification by WMF Begin */
+			// 	if (to_yhigh == from_ylow - 1 || from_yhigh == to_ylow - 1) {
+			// 		num_adj++;
+			// 	}
+			// 	/* Overlapping */
+			// 	else {
+			// 		int j;
 
-					for (j = from_ylow; j <= from_yhigh; j++) {
-						if (j >= to_ylow && j <= to_yhigh) {
-							num_adj++;
-							break;
-						}
-					}
-				}
-				/* UDSD Modification by WMF End */
-			}
+			// 		for (j = from_ylow; j <= from_yhigh; j++) {
+			// 			if (j >= to_ylow && j <= to_yhigh) {
+			// 				num_adj++;
+			// 				break;
+			// 			}
+			// 		}
+			// 	}
+			// 	/* UDSD Modification by WMF End */
+			// }
 		} else if (to_type == CHANX) {
-			num_adj += chanx_chany_adjacent(to_node, from_node);
+			num_adj += 1; //adjacent
+			// num_adj += chanx_chany_adjacent(to_node, from_node);
 		} else {
 			VTR_ASSERT(0);
 		}
