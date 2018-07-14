@@ -287,8 +287,22 @@ for X in range(1, 8):
     for I in rrr:
         nodeidx = len(node_id_to_thing_map)
 
-        node_id_to_thing_map.append(('D', X + (1 if I < 5 else 0), Y, I))
-        thing_to_node_id_map[('D', X + (1 if I < 5 else 0), Y, I)] = nodeidx
+        adjX = X
+        if X == 1:
+            adjI = I
+        else:
+            adjI = I + 5
+            if adjI >= 10:
+                adjI -= 10
+                adjX += 1
+        if adjX == 1:
+            adjX = 2
+        if adjX == 8:
+            adjX = 7
+            adjI += 5
+
+        node_id_to_thing_map.append(('D', adjX, Y, adjI))
+        thing_to_node_id_map[('D', adjX, Y, adjI)] = nodeidx
 
         startY = 1 if I < 7 else 4
 
@@ -321,8 +335,8 @@ for X in range(1, 8):
         for I in range(7):
             nodeidx = len(node_id_to_thing_map)
 
-            node_id_to_thing_map.append(('D', X, Y, I))
-            thing_to_node_id_map[('D', X, Y, I)] = nodeidx
+            node_id_to_thing_map.append(('D', X + 1, Y, I))
+            thing_to_node_id_map[('D', X + 1, Y, I)] = nodeidx
 
             startY = max(Y - 4, 1)
 
@@ -456,9 +470,9 @@ def parse_thing(node):
     if node.startswith("U:"):
         x, y, i = parse_xyi(node[2:])
         ret = ('U', x, y, i)
-    # if node.startswith("D:"):
-    #     x, y, i = parse_xyi(node[2:])
-    #     ret = ('D', x, y, i)
+    if node.startswith("D:"):
+        x, y, i = parse_xyi(node[2:])
+        ret = ('D', x, y, i)
 
     if ret is None:
         return None
