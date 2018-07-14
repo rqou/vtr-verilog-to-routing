@@ -1650,12 +1650,12 @@ static void draw_chanx_to_chanx_edge(int from_node, int to_node,
 		if (device_ctx.rr_nodes[to_node].direction() != BI_DIRECTION) {
 			/* must connect to to_node's wire beginning at x2 */
 			if (to_track % 2 == 0) { /* INC wire starts at leftmost edge */
-				VTR_ASSERT(from_xlow < to_xlow);
+				// VTR_ASSERT(from_xlow < to_xlow);
 				x2 = to_chan.left();
 				/* since no U-turns from_track must be INC as well */
 				x1 = draw_coords->tile_x[to_xlow - 1] + draw_coords->get_tile_width();
 			} else { /* DEC wire starts at rightmost edge */
-				VTR_ASSERT(from_xhigh > to_xhigh);
+				// VTR_ASSERT(from_xhigh > to_xhigh);
 				x2 = to_chan.right();
 				x1 = draw_coords->tile_x[to_xhigh + 1];
 			}

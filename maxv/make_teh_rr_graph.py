@@ -1,3 +1,7 @@
+import json
+with open('initial-interconnect.json', 'r') as f:
+    interconnectinterconnect = json.load(f)
+
 node_id_to_thing_map = []
 thing_to_node_id_map = {}
 
@@ -122,8 +126,8 @@ for X in range(2, 8):
         for I in range(8):
             nodeidx = len(node_id_to_thing_map)
 
-            node_id_to_thing_map.append(('L', X, Y, I))
-            thing_to_node_id_map[('L', X, Y, I)] = nodeidx
+            node_id_to_thing_map.append(('L', X + 1, Y, I))
+            thing_to_node_id_map[('L', X + 1, Y, I)] = nodeidx
 
             startX = max(X - 4, 1)
 
@@ -192,8 +196,8 @@ for X in range(1, 8):
     for I in rrr:
         nodeidx = len(node_id_to_thing_map)
 
-        node_id_to_thing_map.append(('U', X, Y, I))
-        thing_to_node_id_map[('U', X, Y, I)] = nodeidx
+        node_id_to_thing_map.append(('U', X + (1 if I < 5 else 0), Y, I))
+        thing_to_node_id_map[('U', X + (1 if I < 5 else 0), Y, I)] = nodeidx
 
         endY = 4 if I < 7 else 1
 
@@ -269,8 +273,8 @@ for X in range(1, 8):
     for I in rrr:
         nodeidx = len(node_id_to_thing_map)
 
-        node_id_to_thing_map.append(('D', X, Y, I))
-        thing_to_node_id_map[('D', X, Y, I)] = nodeidx
+        node_id_to_thing_map.append(('D', X + (1 if I < 5 else 0), Y, I))
+        thing_to_node_id_map[('D', X + (1 if I < 5 else 0), Y, I)] = nodeidx
 
         startY = 1 if I < 7 else 4
 
@@ -400,6 +404,66 @@ for i in range(len(node_id_to_thing_map)):
 
 # print(NODESNODESNODES)
 
+def parse_xyi(inp):
+    xpos = inp.find('X')
+    ypos = inp.find('Y')
+    ipos = inp.find('I')
+
+    assert xpos >= 0
+    assert ypos > xpos
+    assert ipos > ypos
+
+    return (int(inp[xpos + 1:ypos]), int(inp[ypos + 1:ipos]), int(inp[ipos + 1:]))
+
+def parse_xysi(inp):
+    xpos = inp.find('X')
+    ypos = inp.find('Y')
+    spos = inp.find('S')
+    ipos = inp.find('I')
+
+    assert xpos >= 0
+    assert ypos > xpos
+    assert spos > ypos
+    assert ipos > spos
+
+    sval = int(inp[spos + 1:ipos])
+    assert sval == 0
+
+    return (int(inp[xpos + 1:ypos]), int(inp[ypos + 1:spos]), int(inp[ipos + 1:]))
+
+def parse_thing(node):
+    ret = None
+    if node.startswith("R:"):
+        x, y, i = parse_xyi(node[2:])
+        ret = ('R', x, y, i)
+    if node.startswith("L:"):
+        x, y, i = parse_xyi(node[2:])
+        ret = ('L', x, y, i)
+    # if node.startswith("U:"):
+    #     x, y, i = parse_xyi(node[2:])
+    #     ret = ('U', x, y, i)
+    # if node.startswith("D:"):
+    #     x, y, i = parse_xyi(node[2:])
+    #     ret = ('D', x, y, i)
+
+    if ret is None:
+        return None
+    if ret not in thing_to_node_id_map:
+        print(ret)
+    assert ret in thing_to_node_id_map
+    return thing_to_node_id_map[ret]
+
+EDGESEDGESEDGES = ''
+
+for dstnode, srcnodes in interconnectinterconnect.items():
+    for srcnode in srcnodes:
+        srcthing = parse_thing(srcnode)
+        dstthing = parse_thing(dstnode)
+
+        if srcthing is not None and dstthing is not None:
+            print("{} -> {}".format(srcnode, dstnode))
+            EDGESEDGESEDGES += '<edge src_node="{}" sink_node="{}" switch_id="0"/>\n'.format(srcthing, dstthing)
+
 with open('rrgraph.xml', 'r') as f:
     lines = f.readlines()
 
@@ -408,3 +472,5 @@ with open('rrgraph-newnew.xml', 'w') as f:
         f.write(l)
         if "~+~+~+ PUT CHANNELS HERE +~+~+~" in l:
             f.write(NODESNODESNODES)
+        if "~+~+~+ PUT EDGES HERE +~+~+~" in l:
+            f.write(EDGESEDGESEDGES)
