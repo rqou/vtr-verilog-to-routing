@@ -257,6 +257,7 @@ for node in netroot:
             elif node.attrib['mode'] == 'blif_simple_in':
                 OUTOUTOUT += "IO_TILE:X{}Y{}I{}:ENABLEIBUF = true\n".format(loc[0], loc[1], loc[2])
                 OUTOUTOUT += "IO_TILE:X{}Y{}I{}:INVERTOE = true\n".format(loc[0], loc[1], loc[2])
+                OUTOUTOUT += "IO_TILE:X{}Y{}I{}:SCHMITTTRIGGER = false\n".format(loc[0], loc[1], loc[2])
             else:
                 assert False
         else:
