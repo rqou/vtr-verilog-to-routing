@@ -52,6 +52,7 @@
                 <input name="inverta" num_pins="1"/>
                 <output name="combout" num_pins="1"/>
                 <output name="cout" num_pins="1"/>
+                <input name="cin" num_pins="1"/>
 
                 <pb_type name="lut_blif" blif_model=".names" class="lut" num_pb="1">
                     <input name="in" num_pins="4" port_class="lut_in"/>
