@@ -32,7 +32,7 @@ with open(placefn, 'r') as f:
         block_name, x, y, i, _ = l.split()
         placeplaceplace[block_name] = (x, y, i)
 
-print(placeplaceplace)
+# print(placeplaceplace)
 
 OUTOUTOUT = ''
 
@@ -91,10 +91,24 @@ netroot = ET.parse(netfn).getroot()
 for node in netroot:
     if node.tag == "block":
         if node.attrib['instance'].startswith('lab'):
-            print('LAB {}'.format(node.attrib['name']))
+            # print('LAB {}'.format(node.attrib['name']))
             labloc = placeplaceplace[node.attrib['name']]
+            labnode = node
             # print(labloc)
-            for node in node:
+            for node in labnode:
+                if node.tag == "outputs":
+                    for node in node:
+                        if node.attrib['name'] == 'lab_outputs':
+                            labouts = node.text.split()
+                            # print(labouts)
+                            for lebufferi in range(20):
+                                if labouts[lebufferi] != open:
+                                    # print(labouts[lebufferi])
+                                    if "combout" in labouts[lebufferi]:
+                                        OUTOUTOUT += "COMBOUT -> LE_BUFFER:X{}Y{}S0I{}\n".format(labloc[0], labloc[1], lebufferi)
+                                    else:
+                                        ...
+            for node in labnode:
                 if node.tag == "block" and node.attrib['instance'].startswith('lut'):
                     # print(node.attrib['instance'])
                     # print(node.attrib['instance'].startswith('lut'))
@@ -126,7 +140,7 @@ for node in netroot:
                                     assert False
 
         elif node.attrib['instance'].startswith('row_io_tile') or node.attrib['instance'].startswith('col_io_tile'):
-            print('IO {}'.format(node.attrib['name']))
+            # print('IO {}'.format(node.attrib['name']))
             loc = placeplaceplace[node.attrib['name']]
             # print(loc)
 
