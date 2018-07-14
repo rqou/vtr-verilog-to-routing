@@ -139,6 +139,48 @@ with open(routefn, 'r') as f:
             last_node = l
 
 ################## THIS PART READS NET
+
+
+def shufflelut(origbits, rotdata):
+    rotdata = rotdata.split()
+    rotdata = [4 if x == 'open' else int(x) for x in rotdata]
+    rotdatainv = {}
+    for i in range(4):
+        rotdatainv[rotdata[i]] = i
+    # print(rotdata, rotdatainv)
+
+    def findorig(x, b0new, b1new, b2new, b3new):
+        if x not in rotdatainv:
+            return False
+        return [b0new, b1new, b2new, b3new][rotdatainv[x]]
+
+    # print(rotdata)
+
+    newbits = 0
+
+    for i in range(16):
+        b0new = bool(i & 1)
+        b1new = bool(i & 2)
+        b2new = bool(i & 4)
+        b3new = bool(i & 8)
+
+        # print(b3new, b2new, b1new, b0new)
+
+        b0orig = findorig(0, b0new, b1new, b2new, b3new)
+        b1orig = findorig(1, b0new, b1new, b2new, b3new)
+        b2orig = findorig(2, b0new, b1new, b2new, b3new)
+        b3orig = findorig(3, b0new, b1new, b2new, b3new)
+
+        # print(b3orig, b2orig, b1orig, b0orig)
+
+        oldbitinlut = bool(origbits & (1 << (b3orig * 8 + b2orig * 4 + b1orig * 2 + b0orig)))
+        if oldbitinlut:
+            newbits |= 1 << i
+
+    # print("{:016b} {:016b}".format(origbits, newbits))
+
+    return newbits
+
 netroot = ET.parse(netfn).getroot()
 # print(netroot)
 
@@ -196,10 +238,14 @@ for node in netroot:
                         if node.tag == "block":
                             lutname = node.attrib['name']
                             lutbits = lutlutlut[netnamenetname[lutname]]
-                            print(lutname, lutbits)
+                            # print(lutname, lutbits)
 
                             rotdata = node.find('block').find('inputs').find('port_rotation_map').text
-                            print(rotdata)
+                            # print(rotdata)
+
+                            rotlutbits = shufflelut(lutbits, rotdata)
+
+                            OUTOUTOUT += "LUTBITS:X{}Y{}N{} = {:16b}\n".format(labloc[0], labloc[1], lutidx, rotlutbits)
 
         elif node.attrib['instance'].startswith('row_io_tile') or node.attrib['instance'].startswith('col_io_tile'):
             # print('IO {}'.format(node.attrib['name']))
