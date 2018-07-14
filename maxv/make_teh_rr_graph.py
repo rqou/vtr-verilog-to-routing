@@ -360,7 +360,7 @@ for (myX, vtrX) in [(1, 1), (8, 7)]:
 """.format(nodeidx, vtrX, Y, vtrX, Y, ptcval)
 
 # local interconnect for top/bottom IOs
-for X in range(1, 8):
+for X in range(2, 8):
     for (myY, vtrY) in [(0, 1), (5, 4)]:
         if X == 1:
             rrr = range(0, 5)
@@ -371,27 +371,28 @@ for X in range(1, 8):
 
         for I in rrr:
             nodeidx = len(node_id_to_thing_map)
+            vtrX = X - (1 if I < 5 else 0)
 
             node_id_to_thing_map.append(('LOCAL_INTERCONNECT', X, myY, I))
             thing_to_node_id_map[('LOCAL_INTERCONNECT', X, myY, I)] = nodeidx
 
             ptcval = None
-            for i in range(56):
-                usedindices = PTCPTC.get(('U', X, vtrY), [])
-                if i in usedindices:
+            for i in range(76):
+                usedindices = PTCPTC.get(('U', vtrX, vtrY), [])
+                if i not in usedindices:
                     ptcval = i
                     break
             assert ptcval is not None
 
-            if ('U', X, vtrY) not in PTCPTC:
-                PTCPTC[('U', X, vtrY)] = set()
-            PTCPTC[('U', X, vtrY)].add(ptcval)
+            if ('U', vtrX, vtrY) not in PTCPTC:
+                PTCPTC[('U', vtrX, vtrY)] = set()
+            PTCPTC[('U', vtrX, vtrY)].add(ptcval)
 
-            NODESNODESNODES += """<node id="{}" type="CHANY" direction="DEC_DIR" capacity="1">
+            NODESNODESNODES += """<node id="{}" type="CHANY" direction="INC_DIR" capacity="1">
     <loc xlow="{}" ylow="{}" xhigh="{}" yhigh="{}" ptc="{}"/>
     <segment segment_id="0"/>
 </node>
-""".format(nodeidx, X, vtrY, X, vtrY, ptcval)
+""".format(nodeidx, vtrX, vtrY, vtrX, vtrY, ptcval)
 
 assert len(node_id_to_thing_map) == len(thing_to_node_id_map)
 for i in range(len(node_id_to_thing_map)):
