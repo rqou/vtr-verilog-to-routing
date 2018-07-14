@@ -181,7 +181,15 @@ for Y in range(1, 5):
 # U wires
 for X in range(1, 8):
     Y = 0
-    for I in range(10):
+
+    if X == 1:
+        rrr = range(0, 5)
+    elif X == 7:
+        rrr = range(5, 10)
+    else:
+        rrr = range(10)
+
+    for I in rrr:
         nodeidx = len(node_id_to_thing_map)
 
         node_id_to_thing_map.append(('U', X, Y, I))
@@ -250,7 +258,15 @@ for X in range(1, 8):
 # D wires
 for X in range(1, 8):
     Y = 5
-    for I in range(10):
+
+    if X == 1:
+        rrr = range(0, 5)
+    elif X == 7:
+        rrr = range(5, 10)
+    else:
+        rrr = range(10)
+
+    for I in rrr:
         nodeidx = len(node_id_to_thing_map)
 
         node_id_to_thing_map.append(('D', X, Y, I))
@@ -316,6 +332,68 @@ for X in range(1, 8):
 </node>
 """.format(nodeidx, X, startY, X, Y, ptcval)
 
+# local interconnect for left/right IOs
+for (myX, vtrX) in [(1, 1), (8, 7)]:
+    for Y in range(1, 5):
+        for I in range(18):
+            nodeidx = len(node_id_to_thing_map)
+
+            node_id_to_thing_map.append(('LOCAL_INTERCONNECT', myX, Y, I))
+            thing_to_node_id_map[('LOCAL_INTERCONNECT', myX, Y, I)] = nodeidx
+
+            ptcval = None
+            for i in range(64):
+                usedindices = PTCPTC.get(('R', vtrX, Y), [])
+                if i not in usedindices:
+                    ptcval = i
+                    break
+            assert ptcval is not None
+
+            if ('R', vtrX, Y) not in PTCPTC:
+                PTCPTC[('R', vtrX, Y)] = set()
+            PTCPTC[('R', vtrX, Y)].add(ptcval)
+
+            NODESNODESNODES += """<node id="{}" type="CHANX" direction="INC_DIR" capacity="1">
+    <loc xlow="{}" ylow="{}" xhigh="{}" yhigh="{}" ptc="{}"/>
+    <segment segment_id="0"/>
+</node>
+""".format(nodeidx, vtrX, Y, vtrX, Y, ptcval)
+
+# local interconnect for top/bottom IOs
+for X in range(1, 8):
+    for (myY, vtrY) in [(0, 1), (5, 4)]:
+        if X == 1:
+            rrr = range(0, 5)
+        elif X == 7:
+            rrr = range(5, 10)
+        else:
+            rrr = range(10)
+
+        for I in rrr:
+            nodeidx = len(node_id_to_thing_map)
+
+            node_id_to_thing_map.append(('LOCAL_INTERCONNECT', X, myY, I))
+            thing_to_node_id_map[('LOCAL_INTERCONNECT', X, myY, I)] = nodeidx
+
+            ptcval = None
+            for i in range(56):
+                usedindices = PTCPTC.get(('U', X, vtrY), [])
+                if i in usedindices:
+                    ptcval = i
+                    break
+            assert ptcval is not None
+
+            if ('U', X, vtrY) not in PTCPTC:
+                PTCPTC[('U', X, vtrY)] = set()
+            PTCPTC[('U', X, vtrY)].add(ptcval)
+
+            NODESNODESNODES += """<node id="{}" type="CHANY" direction="DEC_DIR" capacity="1">
+    <loc xlow="{}" ylow="{}" xhigh="{}" yhigh="{}" ptc="{}"/>
+    <segment segment_id="0"/>
+</node>
+""".format(nodeidx, X, vtrY, X, vtrY, ptcval)
+
+assert len(node_id_to_thing_map) == len(thing_to_node_id_map)
 for i in range(len(node_id_to_thing_map)):
     print("Node {} is {}".format(i, node_id_to_thing_map[i]))
 
