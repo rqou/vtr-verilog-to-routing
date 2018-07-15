@@ -17,7 +17,7 @@
         <area grid_logic_tile_area="0"/>
         <connection_block input_switch_name="dummysw"/>
         <switch_block type="wilton" fs="3"/>
-        <default_fc in_type="frac" in_val="0.1" out_type="frac" out_val="0.1"/>
+        <default_fc in_type="abs" in_val="12" out_type="abs" out_val="4"/>
         <chan_width_distr>
             <x distr="uniform" peak="1.000000"/>
             <y distr="uniform" peak="1.000000"/>
@@ -39,7 +39,7 @@
             <output name="cout" num_pins="1"/>
             <clock name="gclk" num_pins="4"/>
 
-            <fc in_type="frac" in_val="0.1" out_type="frac" out_val="0.1">
+            <fc in_type="abs" in_val="12" out_type="abs" out_val="4">
                 <fc_override fc_type="abs" fc_val="0" port_name="cin"/>
                 <fc_override fc_type="abs" fc_val="0" port_name="cout"/>
             </fc>
