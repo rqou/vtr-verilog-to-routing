@@ -37,11 +37,12 @@
             <output name="lab_outputs" num_pins="20"/>
             <input name="cin" num_pins="1"/>
             <output name="cout" num_pins="1"/>
-            <clock name="gclk" num_pins="4"/>
+            <input name="gclk" num_pins="4"/>
 
             <fc in_type="abs" in_val="12" out_type="abs" out_val="4">
                 <fc_override fc_type="abs" fc_val="0" port_name="cin"/>
                 <fc_override fc_type="abs" fc_val="0" port_name="cout"/>
+                <fc_override fc_type="abs" fc_val="0" port_name="gclk"/>
             </fc>
 
             <pb_type name="gclk_to_ll_mux_layer" num_pb="1">
@@ -49,14 +50,14 @@
                 <output name="lab_outputs" num_pins="20"/>
                 <input name="cin" num_pins="1"/>
                 <output name="cout" num_pins="1"/>
-                <clock name="gclk" num_pins="4"/>
+                <input name="gclk" num_pins="4"/>
 
                 <pb_type name="controlmux_layer" num_pb="1">
                     <input name="lab_line" num_pins="26"/>
                     <output name="lab_outputs" num_pins="20"/>
                     <input name="cin" num_pins="1"/>
                     <output name="cout" num_pins="1"/>
-                    <clock name="gclk" num_pins="4"/>
+                    <input name="gclk" num_pins="4"/>
                     <input name="controlmux" num_pins="6"/>
 
                     <pb_type name="labwide_mux_layer" num_pb="1">
@@ -64,7 +65,7 @@
                         <output name="lab_outputs" num_pins="20"/>
                         <input name="cin" num_pins="1"/>
                         <output name="cout" num_pins="1"/>
-                        <clock name="gclk" num_pins="4"/>
+                        <input name="gclk" num_pins="4"/>
                         <input name="labwide_mux" num_pins="8"/>
 
                         <pb_type name="inner_layer" num_pb="1">
@@ -72,7 +73,7 @@
                             <output name="lab_outputs" num_pins="20"/>
                             <input name="cin" num_pins="1"/>
                             <output name="cout" num_pins="1"/>
-                            <clock name="gclk" num_pins="4"/>
+                            <input name="gclk" num_pins="4"/>
 
                             <input name="clk0" num_pins="1"/>
                             <input name="clk1" num_pins="1"/>

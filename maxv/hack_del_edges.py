@@ -1,6 +1,6 @@
 import re
 
-with open('rrgraph.xml', 'r') as f:
+with open('rrgraph-newnew-wtf.xml', 'r') as f:
     lines = f.readlines()
 
 rere = re.compile('\t\t<edge src_node="([0-9]+)" sink_node="([0-9]+)" switch_id="."/>')

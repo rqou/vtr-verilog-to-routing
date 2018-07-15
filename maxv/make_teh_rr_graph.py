@@ -53,28 +53,28 @@ for X in range(1, 9):
                     thing_to_node_id_map[('LOCAL_INTERCONNECT SINK', X, Y, I)] = len(node_id_to_thing_map) - 1
                 node_id_to_thing_map.append(('LAB CIN SINK', X, Y, I))
                 thing_to_node_id_map[('LAB CIN SINK', X, Y, I)] = len(node_id_to_thing_map) - 1
+                for I in range(4):
+                    node_id_to_thing_map.append(('GCLK SINK', X, Y, I))
+                    thing_to_node_id_map[('GCLK SINK', X, Y, I)] = len(node_id_to_thing_map) - 1
                 for I in range(20):
                     node_id_to_thing_map.append(('LE_BUFFER SOURCE', X, Y, I))
                     thing_to_node_id_map[('LE_BUFFER SOURCE', X, Y, I)] = len(node_id_to_thing_map) - 1
                 node_id_to_thing_map.append(('LAB COUT SOURCE', X, Y, I))
                 thing_to_node_id_map[('LAB COUT SOURCE', X, Y, I)] = len(node_id_to_thing_map) - 1
-                for I in range(4):
-                    node_id_to_thing_map.append(('GCLK SINK', X, Y, I))
-                    thing_to_node_id_map[('GCLK SINK', X, Y, I)] = len(node_id_to_thing_map) - 1
 
                 for I in range(26):
                     node_id_to_thing_map.append(('LOCAL_INTERCONNECT', X, Y, I))
                     thing_to_node_id_map[('LOCAL_INTERCONNECT', X, Y, I)] = len(node_id_to_thing_map) - 1
                 node_id_to_thing_map.append(('LAB CIN', X, Y, I))
                 thing_to_node_id_map[('LAB CIN', X, Y, I)] = len(node_id_to_thing_map) - 1
+                for I in range(4):
+                    node_id_to_thing_map.append(('GCLK', X, Y, I))
+                    thing_to_node_id_map[('GCLK', X, Y, I)] = len(node_id_to_thing_map) - 1
                 for I in range(20):
                     node_id_to_thing_map.append(('LE_BUFFER', X, Y, I))
                     thing_to_node_id_map[('LE_BUFFER', X, Y, I)] = len(node_id_to_thing_map) - 1
                 node_id_to_thing_map.append(('LAB COUT', X, Y, I))
                 thing_to_node_id_map[('LAB COUT', X, Y, I)] = len(node_id_to_thing_map) - 1
-                for I in range(4):
-                    node_id_to_thing_map.append(('GCLK', X, Y, I))
-                    thing_to_node_id_map[('GCLK', X, Y, I)] = len(node_id_to_thing_map) - 1
 
 assert len(node_id_to_thing_map) == 3024
 assert len(thing_to_node_id_map) == 3024
