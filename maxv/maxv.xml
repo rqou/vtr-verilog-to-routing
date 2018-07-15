@@ -5,11 +5,11 @@
         <fixed_layout name="240le" width="9" height="6">
             <region type="lab" priority="1" startx="2" endx="7" starty="1" endy="4"/>
 
-            <region type="col_io_tile" priority="1" startx="2" endx="7" starty="5" endy="5"/>
-            <region type="col_io_tile" priority="1" startx="2" endx="7" starty="0" endy="0"/>
+            <region type="io_tile" priority="1" startx="2" endx="7" starty="5" endy="5"/>
+            <region type="io_tile" priority="1" startx="2" endx="7" starty="0" endy="0"/>
 
-            <region type="row_io_tile" priority="1" startx="1" endx="1" starty="1" endy="4"/>
-            <region type="row_io_tile" priority="1" startx="8" endx="8" starty="1" endy="4"/>
+            <region type="io_tile" priority="1" startx="1" endx="1" starty="1" endy="4"/>
+            <region type="io_tile" priority="1" startx="8" endx="8" starty="1" endy="4"/>
         </fixed_layout>
     </layout>
     <device>
@@ -268,7 +268,7 @@
             </interconnect>
         </pb_type>
 
-        <pb_type name="col_io_tile" capacity="4">
+        <pb_type name="io_tile" capacity="5">
             <input name="datain" num_pins="1"/>
             <input name="oe" num_pins="1"/>
             <output name="combout" num_pins="1"/>
@@ -278,7 +278,7 @@
                     <output name="inpad" num_pins="1"/>
                 </pb_type>
                 <interconnect>
-                    <direct name="simplein" input="simplein.inpad" output="col_io_tile.combout"/>
+                    <direct name="simplein" input="simplein.inpad" output="io_tile.combout"/>
                 </interconnect>
             </mode>
 
@@ -287,31 +287,7 @@
                     <input name="outpad" num_pins="1"/>
                 </pb_type>
                 <interconnect>
-                    <direct name="simpleout" input="col_io_tile.datain" output="simpleout.outpad"/>
-                </interconnect>
-            </mode>
-        </pb_type>
-
-        <pb_type name="row_io_tile" capacity="5">
-            <input name="datain" num_pins="1"/>
-            <input name="oe" num_pins="1"/>
-            <output name="combout" num_pins="1"/>
-
-            <mode name="blif_simple_in">
-                <pb_type name="simplein" blif_model=".input" num_pb="1">
-                    <output name="inpad" num_pins="1"/>
-                </pb_type>
-                <interconnect>
-                    <direct name="simplein" input="simplein.inpad" output="row_io_tile.combout"/>
-                </interconnect>
-            </mode>
-
-            <mode name="blif_simple_out">
-                <pb_type name="simpleout" blif_model=".output" num_pb="1">
-                    <input name="outpad" num_pins="1"/>
-                </pb_type>
-                <interconnect>
-                    <direct name="simpleout" input="row_io_tile.datain" output="simpleout.outpad"/>
+                    <direct name="simpleout" input="io_tile.datain" output="simpleout.outpad"/>
                 </interconnect>
             </mode>
         </pb_type>

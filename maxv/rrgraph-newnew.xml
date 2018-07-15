@@ -1,7 +1,7 @@
 <rr_graph tool_name="vpr" tool_version="8.0.0-dev+2f924d73f-dirty" tool_comment="Generated from arch file maxv.xml">
 	<channels>
 		<channel chan_width_max ="90" x_min="0" y_min="0" x_max="90" y_max="76"/>
-		<x_list index ="0" info="0"/>
+		<x_list index ="0" info="4"/>
 		<x_list index ="1" info="90"/>
 		<x_list index ="2" info="90"/>
 		<x_list index ="3" info="90"/>
@@ -89,7 +89,7 @@
 			<pin_class type="OUTPUT">50 </pin_class>
 			<pin_class type="OUTPUT">51 </pin_class>
 		</block_type>
-		<block_type id="2" name="col_io_tile" width="1" height="1">
+		<block_type id="2" name="io_tile" width="1" height="1">
 			<pin_class type="INPUT">0 </pin_class>
 			<pin_class type="INPUT">1 </pin_class>
 			<pin_class type="OUTPUT">2 </pin_class>
@@ -102,23 +102,6 @@
 			<pin_class type="INPUT">9 </pin_class>
 			<pin_class type="INPUT">10 </pin_class>
 			<pin_class type="OUTPUT">11 </pin_class>
-		</block_type>
-		<block_type id="3" name="row_io_tile" width="1" height="1">
-			<pin_class type="INPUT">0 </pin_class>
-			<pin_class type="INPUT">1 </pin_class>
-			<pin_class type="OUTPUT">2 </pin_class>
-			<pin_class type="INPUT">3 </pin_class>
-			<pin_class type="INPUT">4 </pin_class>
-			<pin_class type="OUTPUT">5 </pin_class>
-			<pin_class type="INPUT">6 </pin_class>
-			<pin_class type="INPUT">7 </pin_class>
-			<pin_class type="OUTPUT">8 </pin_class>
-			<pin_class type="INPUT">9 </pin_class>
-			<pin_class type="INPUT">10 </pin_class>
-			<pin_class type="OUTPUT">11 </pin_class>
-			<pin_class type="INPUT">12 </pin_class>
-			<pin_class type="INPUT">13 </pin_class>
-			<pin_class type="OUTPUT">14 </pin_class>
 		</block_type>
 	</block_types>
 
@@ -130,10 +113,10 @@
 		<grid_loc x="0" y="4" block_type_id="0" width_offset="0" height_offset="0"/>
 		<grid_loc x="0" y="5" block_type_id="0" width_offset="0" height_offset="0"/>
 		<grid_loc x="1" y="0" block_type_id="0" width_offset="0" height_offset="0"/>
-		<grid_loc x="1" y="1" block_type_id="3" width_offset="0" height_offset="0"/>
-		<grid_loc x="1" y="2" block_type_id="3" width_offset="0" height_offset="0"/>
-		<grid_loc x="1" y="3" block_type_id="3" width_offset="0" height_offset="0"/>
-		<grid_loc x="1" y="4" block_type_id="3" width_offset="0" height_offset="0"/>
+		<grid_loc x="1" y="1" block_type_id="2" width_offset="0" height_offset="0"/>
+		<grid_loc x="1" y="2" block_type_id="2" width_offset="0" height_offset="0"/>
+		<grid_loc x="1" y="3" block_type_id="2" width_offset="0" height_offset="0"/>
+		<grid_loc x="1" y="4" block_type_id="2" width_offset="0" height_offset="0"/>
 		<grid_loc x="1" y="5" block_type_id="0" width_offset="0" height_offset="0"/>
 		<grid_loc x="2" y="0" block_type_id="2" width_offset="0" height_offset="0"/>
 		<grid_loc x="2" y="1" block_type_id="1" width_offset="0" height_offset="0"/>
@@ -172,10 +155,10 @@
 		<grid_loc x="7" y="4" block_type_id="1" width_offset="0" height_offset="0"/>
 		<grid_loc x="7" y="5" block_type_id="2" width_offset="0" height_offset="0"/>
 		<grid_loc x="8" y="0" block_type_id="0" width_offset="0" height_offset="0"/>
-		<grid_loc x="8" y="1" block_type_id="3" width_offset="0" height_offset="0"/>
-		<grid_loc x="8" y="2" block_type_id="3" width_offset="0" height_offset="0"/>
-		<grid_loc x="8" y="3" block_type_id="3" width_offset="0" height_offset="0"/>
-		<grid_loc x="8" y="4" block_type_id="3" width_offset="0" height_offset="0"/>
+		<grid_loc x="8" y="1" block_type_id="2" width_offset="0" height_offset="0"/>
+		<grid_loc x="8" y="2" block_type_id="2" width_offset="0" height_offset="0"/>
+		<grid_loc x="8" y="3" block_type_id="2" width_offset="0" height_offset="0"/>
+		<grid_loc x="8" y="4" block_type_id="2" width_offset="0" height_offset="0"/>
 		<grid_loc x="8" y="5" block_type_id="0" width_offset="0" height_offset="0"/>
 	</grid>
 
@@ -17172,6 +17155,22 @@
 </node>
 <node id="4247" type="CHANY" direction="INC_DIR" capacity="1">
     <loc xlow="7" ylow="4" xhigh="7" yhigh="4" ptc="37"/>
+    <segment segment_id="0"/>
+</node>
+<node id="4248" type="CHANX" direction="INC_DIR" capacity="1">
+    <loc xlow="1" ylow="0" xhigh="1" yhigh="0" ptc="0"/>
+    <segment segment_id="0"/>
+</node>
+<node id="4249" type="CHANX" direction="INC_DIR" capacity="1">
+    <loc xlow="1" ylow="0" xhigh="1" yhigh="0" ptc="1"/>
+    <segment segment_id="0"/>
+</node>
+<node id="4250" type="CHANX" direction="INC_DIR" capacity="1">
+    <loc xlow="1" ylow="0" xhigh="1" yhigh="0" ptc="2"/>
+    <segment segment_id="0"/>
+</node>
+<node id="4251" type="CHANX" direction="INC_DIR" capacity="1">
+    <loc xlow="1" ylow="0" xhigh="1" yhigh="0" ptc="3"/>
     <segment segment_id="0"/>
 </node>
 
@@ -35359,6 +35358,106 @@
 <edge src_node="3047" sink_node="422" switch_id="0"/>
 <edge src_node="3475" sink_node="422" switch_id="0"/>
 <edge src_node="445" sink_node="422" switch_id="0"/>
+<edge src_node="4248" sink_node="223" switch_id="0"/>
+<edge src_node="4249" sink_node="224" switch_id="0"/>
+<edge src_node="4250" sink_node="225" switch_id="0"/>
+<edge src_node="4251" sink_node="226" switch_id="0"/>
+<edge src_node="4248" sink_node="327" switch_id="0"/>
+<edge src_node="4249" sink_node="328" switch_id="0"/>
+<edge src_node="4250" sink_node="329" switch_id="0"/>
+<edge src_node="4251" sink_node="330" switch_id="0"/>
+<edge src_node="4248" sink_node="431" switch_id="0"/>
+<edge src_node="4249" sink_node="432" switch_id="0"/>
+<edge src_node="4250" sink_node="433" switch_id="0"/>
+<edge src_node="4251" sink_node="434" switch_id="0"/>
+<edge src_node="4248" sink_node="535" switch_id="0"/>
+<edge src_node="4249" sink_node="536" switch_id="0"/>
+<edge src_node="4250" sink_node="537" switch_id="0"/>
+<edge src_node="4251" sink_node="538" switch_id="0"/>
+<edge src_node="4248" sink_node="687" switch_id="0"/>
+<edge src_node="4249" sink_node="688" switch_id="0"/>
+<edge src_node="4250" sink_node="689" switch_id="0"/>
+<edge src_node="4251" sink_node="690" switch_id="0"/>
+<edge src_node="4248" sink_node="791" switch_id="0"/>
+<edge src_node="4249" sink_node="792" switch_id="0"/>
+<edge src_node="4250" sink_node="793" switch_id="0"/>
+<edge src_node="4251" sink_node="794" switch_id="0"/>
+<edge src_node="4248" sink_node="895" switch_id="0"/>
+<edge src_node="4249" sink_node="896" switch_id="0"/>
+<edge src_node="4250" sink_node="897" switch_id="0"/>
+<edge src_node="4251" sink_node="898" switch_id="0"/>
+<edge src_node="4248" sink_node="999" switch_id="0"/>
+<edge src_node="4249" sink_node="1000" switch_id="0"/>
+<edge src_node="4250" sink_node="1001" switch_id="0"/>
+<edge src_node="4251" sink_node="1002" switch_id="0"/>
+<edge src_node="4248" sink_node="1151" switch_id="0"/>
+<edge src_node="4249" sink_node="1152" switch_id="0"/>
+<edge src_node="4250" sink_node="1153" switch_id="0"/>
+<edge src_node="4251" sink_node="1154" switch_id="0"/>
+<edge src_node="4248" sink_node="1255" switch_id="0"/>
+<edge src_node="4249" sink_node="1256" switch_id="0"/>
+<edge src_node="4250" sink_node="1257" switch_id="0"/>
+<edge src_node="4251" sink_node="1258" switch_id="0"/>
+<edge src_node="4248" sink_node="1359" switch_id="0"/>
+<edge src_node="4249" sink_node="1360" switch_id="0"/>
+<edge src_node="4250" sink_node="1361" switch_id="0"/>
+<edge src_node="4251" sink_node="1362" switch_id="0"/>
+<edge src_node="4248" sink_node="1463" switch_id="0"/>
+<edge src_node="4249" sink_node="1464" switch_id="0"/>
+<edge src_node="4250" sink_node="1465" switch_id="0"/>
+<edge src_node="4251" sink_node="1466" switch_id="0"/>
+<edge src_node="4248" sink_node="1615" switch_id="0"/>
+<edge src_node="4249" sink_node="1616" switch_id="0"/>
+<edge src_node="4250" sink_node="1617" switch_id="0"/>
+<edge src_node="4251" sink_node="1618" switch_id="0"/>
+<edge src_node="4248" sink_node="1719" switch_id="0"/>
+<edge src_node="4249" sink_node="1720" switch_id="0"/>
+<edge src_node="4250" sink_node="1721" switch_id="0"/>
+<edge src_node="4251" sink_node="1722" switch_id="0"/>
+<edge src_node="4248" sink_node="1823" switch_id="0"/>
+<edge src_node="4249" sink_node="1824" switch_id="0"/>
+<edge src_node="4250" sink_node="1825" switch_id="0"/>
+<edge src_node="4251" sink_node="1826" switch_id="0"/>
+<edge src_node="4248" sink_node="1927" switch_id="0"/>
+<edge src_node="4249" sink_node="1928" switch_id="0"/>
+<edge src_node="4250" sink_node="1929" switch_id="0"/>
+<edge src_node="4251" sink_node="1930" switch_id="0"/>
+<edge src_node="4248" sink_node="2079" switch_id="0"/>
+<edge src_node="4249" sink_node="2080" switch_id="0"/>
+<edge src_node="4250" sink_node="2081" switch_id="0"/>
+<edge src_node="4251" sink_node="2082" switch_id="0"/>
+<edge src_node="4248" sink_node="2183" switch_id="0"/>
+<edge src_node="4249" sink_node="2184" switch_id="0"/>
+<edge src_node="4250" sink_node="2185" switch_id="0"/>
+<edge src_node="4251" sink_node="2186" switch_id="0"/>
+<edge src_node="4248" sink_node="2287" switch_id="0"/>
+<edge src_node="4249" sink_node="2288" switch_id="0"/>
+<edge src_node="4250" sink_node="2289" switch_id="0"/>
+<edge src_node="4251" sink_node="2290" switch_id="0"/>
+<edge src_node="4248" sink_node="2391" switch_id="0"/>
+<edge src_node="4249" sink_node="2392" switch_id="0"/>
+<edge src_node="4250" sink_node="2393" switch_id="0"/>
+<edge src_node="4251" sink_node="2394" switch_id="0"/>
+<edge src_node="4248" sink_node="2543" switch_id="0"/>
+<edge src_node="4249" sink_node="2544" switch_id="0"/>
+<edge src_node="4250" sink_node="2545" switch_id="0"/>
+<edge src_node="4251" sink_node="2546" switch_id="0"/>
+<edge src_node="4248" sink_node="2647" switch_id="0"/>
+<edge src_node="4249" sink_node="2648" switch_id="0"/>
+<edge src_node="4250" sink_node="2649" switch_id="0"/>
+<edge src_node="4251" sink_node="2650" switch_id="0"/>
+<edge src_node="4248" sink_node="2751" switch_id="0"/>
+<edge src_node="4249" sink_node="2752" switch_id="0"/>
+<edge src_node="4250" sink_node="2753" switch_id="0"/>
+<edge src_node="4251" sink_node="2754" switch_id="0"/>
+<edge src_node="4248" sink_node="2855" switch_id="0"/>
+<edge src_node="4249" sink_node="2856" switch_id="0"/>
+<edge src_node="4250" sink_node="2857" switch_id="0"/>
+<edge src_node="4251" sink_node="2858" switch_id="0"/>
+<edge src_node="86" sink_node="4248" switch_id="0"/>
+<edge src_node="47" sink_node="4249" switch_id="0"/>
+<edge src_node="2951" sink_node="4250" switch_id="0"/>
+<edge src_node="2993" sink_node="4251" switch_id="0"/>
 <edge src_node="3984" sink_node="15" switch_id="0"/>
 <edge src_node="3984" sink_node="16" switch_id="0"/>
 <edge src_node="3985" sink_node="15" switch_id="0"/>

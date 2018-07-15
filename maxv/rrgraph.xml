@@ -1,7 +1,7 @@
 <rr_graph tool_name="vpr" tool_version="8.0.0-dev+2f924d73f-dirty" tool_comment="Generated from arch file maxv.xml">
 	<channels>
 		<channel chan_width_max ="90" x_min="0" y_min="0" x_max="90" y_max="76"/>
-		<x_list index ="0" info="0"/>
+		<x_list index ="0" info="4"/>
 		<x_list index ="1" info="90"/>
 		<x_list index ="2" info="90"/>
 		<x_list index ="3" info="90"/>
@@ -89,7 +89,7 @@
 			<pin_class type="OUTPUT">50 </pin_class>
 			<pin_class type="OUTPUT">51 </pin_class>
 		</block_type>
-		<block_type id="2" name="col_io_tile" width="1" height="1">
+		<block_type id="2" name="io_tile" width="1" height="1">
 			<pin_class type="INPUT">0 </pin_class>
 			<pin_class type="INPUT">1 </pin_class>
 			<pin_class type="OUTPUT">2 </pin_class>
@@ -102,23 +102,6 @@
 			<pin_class type="INPUT">9 </pin_class>
 			<pin_class type="INPUT">10 </pin_class>
 			<pin_class type="OUTPUT">11 </pin_class>
-		</block_type>
-		<block_type id="3" name="row_io_tile" width="1" height="1">
-			<pin_class type="INPUT">0 </pin_class>
-			<pin_class type="INPUT">1 </pin_class>
-			<pin_class type="OUTPUT">2 </pin_class>
-			<pin_class type="INPUT">3 </pin_class>
-			<pin_class type="INPUT">4 </pin_class>
-			<pin_class type="OUTPUT">5 </pin_class>
-			<pin_class type="INPUT">6 </pin_class>
-			<pin_class type="INPUT">7 </pin_class>
-			<pin_class type="OUTPUT">8 </pin_class>
-			<pin_class type="INPUT">9 </pin_class>
-			<pin_class type="INPUT">10 </pin_class>
-			<pin_class type="OUTPUT">11 </pin_class>
-			<pin_class type="INPUT">12 </pin_class>
-			<pin_class type="INPUT">13 </pin_class>
-			<pin_class type="OUTPUT">14 </pin_class>
 		</block_type>
 	</block_types>
 
@@ -130,10 +113,10 @@
 		<grid_loc x="0" y="4" block_type_id="0" width_offset="0" height_offset="0"/>
 		<grid_loc x="0" y="5" block_type_id="0" width_offset="0" height_offset="0"/>
 		<grid_loc x="1" y="0" block_type_id="0" width_offset="0" height_offset="0"/>
-		<grid_loc x="1" y="1" block_type_id="3" width_offset="0" height_offset="0"/>
-		<grid_loc x="1" y="2" block_type_id="3" width_offset="0" height_offset="0"/>
-		<grid_loc x="1" y="3" block_type_id="3" width_offset="0" height_offset="0"/>
-		<grid_loc x="1" y="4" block_type_id="3" width_offset="0" height_offset="0"/>
+		<grid_loc x="1" y="1" block_type_id="2" width_offset="0" height_offset="0"/>
+		<grid_loc x="1" y="2" block_type_id="2" width_offset="0" height_offset="0"/>
+		<grid_loc x="1" y="3" block_type_id="2" width_offset="0" height_offset="0"/>
+		<grid_loc x="1" y="4" block_type_id="2" width_offset="0" height_offset="0"/>
 		<grid_loc x="1" y="5" block_type_id="0" width_offset="0" height_offset="0"/>
 		<grid_loc x="2" y="0" block_type_id="2" width_offset="0" height_offset="0"/>
 		<grid_loc x="2" y="1" block_type_id="1" width_offset="0" height_offset="0"/>
@@ -172,10 +155,10 @@
 		<grid_loc x="7" y="4" block_type_id="1" width_offset="0" height_offset="0"/>
 		<grid_loc x="7" y="5" block_type_id="2" width_offset="0" height_offset="0"/>
 		<grid_loc x="8" y="0" block_type_id="0" width_offset="0" height_offset="0"/>
-		<grid_loc x="8" y="1" block_type_id="3" width_offset="0" height_offset="0"/>
-		<grid_loc x="8" y="2" block_type_id="3" width_offset="0" height_offset="0"/>
-		<grid_loc x="8" y="3" block_type_id="3" width_offset="0" height_offset="0"/>
-		<grid_loc x="8" y="4" block_type_id="3" width_offset="0" height_offset="0"/>
+		<grid_loc x="8" y="1" block_type_id="2" width_offset="0" height_offset="0"/>
+		<grid_loc x="8" y="2" block_type_id="2" width_offset="0" height_offset="0"/>
+		<grid_loc x="8" y="3" block_type_id="2" width_offset="0" height_offset="0"/>
+		<grid_loc x="8" y="4" block_type_id="2" width_offset="0" height_offset="0"/>
 		<grid_loc x="8" y="5" block_type_id="0" width_offset="0" height_offset="0"/>
 	</grid>
 

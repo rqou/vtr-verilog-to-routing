@@ -421,6 +421,31 @@ for X in range(2, 8):
 </node>
 """.format(nodeidx, vtrX, vtrY, vtrX, vtrY, ptcval)
 
+# CLOCKS HACK
+for I in range(4):
+    nodeidx = len(node_id_to_thing_map)
+
+    node_id_to_thing_map.append(('GCLK', I))
+    thing_to_node_id_map[('GCLK', I)] = nodeidx
+
+    ptcval = None
+    for i in range(64):
+        usedindices = PTCPTC.get(('R', 1, 0), [])
+        if i not in usedindices:
+            ptcval = i
+            break
+    assert ptcval is not None
+
+    if ('R', 1, 0) not in PTCPTC:
+        PTCPTC[('R', 1, 0)] = set()
+    PTCPTC[('R', 1, 0)].add(ptcval)
+
+    NODESNODESNODES += """<node id="{}" type="CHANX" direction="INC_DIR" capacity="1">
+    <loc xlow="{}" ylow="{}" xhigh="{}" yhigh="{}" ptc="{}"/>
+    <segment segment_id="0"/>
+</node>
+""".format(nodeidx, 1, 0, 1, 0, ptcval)
+
 assert len(node_id_to_thing_map) == len(thing_to_node_id_map)
 for i in range(len(node_id_to_thing_map)):
     print("Node {} is {}".format(i, node_id_to_thing_map[i]))
@@ -514,6 +539,28 @@ for dstnode, srcnodes in interconnectinterconnect.items():
             EDGESEDGESEDGES += '<edge src_node="{}" sink_node="{}" switch_id="0"/>\n'.format(srcthing, dstthing)
         else:
             print("SKIPPED {} -> {}".format(srcnode, dstnode))
+
+# Clocks to tile
+for X in range(2, 8):
+    for Y in range(1, 5):
+        for I in range(4):
+            EDGESEDGESEDGES += '<edge src_node="{}" sink_node="{}" switch_id="0"/>\n'.format(
+                thing_to_node_id_map[('GCLK', I)],
+                thing_to_node_id_map[('GCLK', X, Y, I)])
+
+# IO to clock
+EDGESEDGESEDGES += '<edge src_node="{}" sink_node="{}" switch_id="0"/>\n'.format(
+    thing_to_node_id_map[('IO_DATAOUT', 1, 3, 3)],
+    thing_to_node_id_map[('GCLK', 0)])
+EDGESEDGESEDGES += '<edge src_node="{}" sink_node="{}" switch_id="0"/>\n'.format(
+    thing_to_node_id_map[('IO_DATAOUT', 1, 2, 0)],
+    thing_to_node_id_map[('GCLK', 1)])
+EDGESEDGESEDGES += '<edge src_node="{}" sink_node="{}" switch_id="0"/>\n'.format(
+    thing_to_node_id_map[('IO_DATAOUT', 8, 2, 0)],
+    thing_to_node_id_map[('GCLK', 2)])
+EDGESEDGESEDGES += '<edge src_node="{}" sink_node="{}" switch_id="0"/>\n'.format(
+    thing_to_node_id_map[('IO_DATAOUT', 8, 3, 4)],
+    thing_to_node_id_map[('GCLK', 3)])
 
 # IO local interconnect to output
 for X in [1, 8]:
