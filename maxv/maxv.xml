@@ -44,94 +44,138 @@
                 <fc_override fc_type="abs" fc_val="0" port_name="cout"/>
             </fc>
 
-            <pb_type name="lut" num_pb="10">
-                <input name="dataa" num_pins="1"/>
-                <input name="datab" num_pins="1"/>
-                <input name="datac" num_pins="1"/>
-                <input name="datad" num_pins="1"/>
-                <input name="inverta" num_pins="1"/>
-                <output name="combout" num_pins="1"/>
-                <output name="cout" num_pins="1"/>
+            <pb_type name="gclk_to_ll_mux_layer" num_pb="1">
+                <input name="lab_line" num_pins="26"/>
+                <output name="lab_outputs" num_pins="20"/>
                 <input name="cin" num_pins="1"/>
+                <output name="cout" num_pins="1"/>
+                <clock name="gclk" num_pins="4"/>
 
-                <pb_type name="lut_blif" blif_model=".names" class="lut" num_pb="1">
-                    <input name="in" num_pins="4" port_class="lut_in"/>
-                    <output name="out" num_pins="1" port_class="lut_out"/>
+                <pb_type name="lut" num_pb="10">
+                    <input name="dataa" num_pins="1"/>
+                    <input name="datab" num_pins="1"/>
+                    <input name="datac" num_pins="1"/>
+                    <input name="datad" num_pins="1"/>
+                    <input name="inverta" num_pins="1"/>
+                    <output name="combout" num_pins="1"/>
+                    <output name="cout" num_pins="1"/>
+                    <input name="cin" num_pins="1"/>
+
+                    <pb_type name="lut_blif" blif_model=".names" class="lut" num_pb="1">
+                        <input name="in" num_pins="4" port_class="lut_in"/>
+                        <output name="out" num_pins="1" port_class="lut_out"/>
+                    </pb_type>
+
+                    <interconnect>
+                        <direct name="dataa" input="lut.dataa" output="lut_blif.in[0]"/>
+                        <direct name="datab" input="lut.datab" output="lut_blif.in[1]"/>
+                        <direct name="datac" input="lut.datac" output="lut_blif.in[2]"/>
+                        <direct name="datad" input="lut.datad" output="lut_blif.in[3]"/>
+                        <direct name="combout" input="lut_blif.out" output="lut.combout"/>
+                    </interconnect>
                 </pb_type>
 
                 <interconnect>
-                    <direct name="dataa" input="lut.dataa" output="lut_blif.in[0]"/>
-                    <direct name="datab" input="lut.datab" output="lut_blif.in[1]"/>
-                    <direct name="datac" input="lut.datac" output="lut_blif.in[2]"/>
-                    <direct name="datad" input="lut.datad" output="lut_blif.in[3]"/>
-                    <direct name="combout" input="lut_blif.out" output="lut.combout"/>
+                    <!-- Local line to LUT input -->
+                    <mux name="lut0_dataa" output="lut[0].dataa" input="gclk_to_ll_mux_layer.lab_line[0] gclk_to_ll_mux_layer.lab_line[1] gclk_to_ll_mux_layer.lab_line[3] gclk_to_ll_mux_layer.lab_line[6]  gclk_to_ll_mux_layer.lab_line[8] gclk_to_ll_mux_layer.lab_line[9]  gclk_to_ll_mux_layer.lab_line[11] gclk_to_ll_mux_layer.lab_line[14] gclk_to_ll_mux_layer.lab_line[15] gclk_to_ll_mux_layer.lab_line[18] gclk_to_ll_mux_layer.lab_line[19] gclk_to_ll_mux_layer.lab_line[22] gclk_to_ll_mux_layer.lab_line[25]"/>
+                    <mux name="lut0_datab" output="lut[0].datab" input="gclk_to_ll_mux_layer.lab_line[2] gclk_to_ll_mux_layer.lab_line[4] gclk_to_ll_mux_layer.lab_line[5] gclk_to_ll_mux_layer.lab_line[7] gclk_to_ll_mux_layer.lab_line[10] gclk_to_ll_mux_layer.lab_line[12] gclk_to_ll_mux_layer.lab_line[13] gclk_to_ll_mux_layer.lab_line[16] gclk_to_ll_mux_layer.lab_line[17] gclk_to_ll_mux_layer.lab_line[20] gclk_to_ll_mux_layer.lab_line[21] gclk_to_ll_mux_layer.lab_line[23] gclk_to_ll_mux_layer.lab_line[24]"/>
+                    <mux name="lut0_datac" output="lut[0].datac" input="gclk_to_ll_mux_layer.lab_line[0] gclk_to_ll_mux_layer.lab_line[2] gclk_to_ll_mux_layer.lab_line[3] gclk_to_ll_mux_layer.lab_line[7] gclk_to_ll_mux_layer.lab_line[8]  gclk_to_ll_mux_layer.lab_line[9]  gclk_to_ll_mux_layer.lab_line[11] gclk_to_ll_mux_layer.lab_line[14] gclk_to_ll_mux_layer.lab_line[17] gclk_to_ll_mux_layer.lab_line[18] gclk_to_ll_mux_layer.lab_line[21] gclk_to_ll_mux_layer.lab_line[22] gclk_to_ll_mux_layer.lab_line[25]"/>
+                    <mux name="lut0_datad" output="lut[0].datad" input="gclk_to_ll_mux_layer.lab_line[1] gclk_to_ll_mux_layer.lab_line[4] gclk_to_ll_mux_layer.lab_line[5] gclk_to_ll_mux_layer.lab_line[6] gclk_to_ll_mux_layer.lab_line[10] gclk_to_ll_mux_layer.lab_line[12] gclk_to_ll_mux_layer.lab_line[13] gclk_to_ll_mux_layer.lab_line[15] gclk_to_ll_mux_layer.lab_line[16] gclk_to_ll_mux_layer.lab_line[19] gclk_to_ll_mux_layer.lab_line[20] gclk_to_ll_mux_layer.lab_line[23] gclk_to_ll_mux_layer.lab_line[24]"/>
+                    <mux name="lut1_dataa" output="lut[1].dataa" input="gclk_to_ll_mux_layer.lab_line[0] gclk_to_ll_mux_layer.lab_line[1] gclk_to_ll_mux_layer.lab_line[3] gclk_to_ll_mux_layer.lab_line[6]  gclk_to_ll_mux_layer.lab_line[8] gclk_to_ll_mux_layer.lab_line[9]  gclk_to_ll_mux_layer.lab_line[11] gclk_to_ll_mux_layer.lab_line[14] gclk_to_ll_mux_layer.lab_line[15] gclk_to_ll_mux_layer.lab_line[18] gclk_to_ll_mux_layer.lab_line[19] gclk_to_ll_mux_layer.lab_line[22] gclk_to_ll_mux_layer.lab_line[25]"/>
+                    <mux name="lut1_datab" output="lut[1].datab" input="gclk_to_ll_mux_layer.lab_line[2] gclk_to_ll_mux_layer.lab_line[4] gclk_to_ll_mux_layer.lab_line[5] gclk_to_ll_mux_layer.lab_line[7] gclk_to_ll_mux_layer.lab_line[10] gclk_to_ll_mux_layer.lab_line[12] gclk_to_ll_mux_layer.lab_line[13] gclk_to_ll_mux_layer.lab_line[16] gclk_to_ll_mux_layer.lab_line[17] gclk_to_ll_mux_layer.lab_line[20] gclk_to_ll_mux_layer.lab_line[21] gclk_to_ll_mux_layer.lab_line[23] gclk_to_ll_mux_layer.lab_line[24]"/>
+                    <mux name="lut1_datac" output="lut[1].datac" input="gclk_to_ll_mux_layer.lab_line[0] gclk_to_ll_mux_layer.lab_line[2] gclk_to_ll_mux_layer.lab_line[3] gclk_to_ll_mux_layer.lab_line[7] gclk_to_ll_mux_layer.lab_line[8]  gclk_to_ll_mux_layer.lab_line[9]  gclk_to_ll_mux_layer.lab_line[11] gclk_to_ll_mux_layer.lab_line[14] gclk_to_ll_mux_layer.lab_line[17] gclk_to_ll_mux_layer.lab_line[18] gclk_to_ll_mux_layer.lab_line[21] gclk_to_ll_mux_layer.lab_line[22] gclk_to_ll_mux_layer.lab_line[25]"/>
+                    <mux name="lut1_datad" output="lut[1].datad" input="gclk_to_ll_mux_layer.lab_line[1] gclk_to_ll_mux_layer.lab_line[4] gclk_to_ll_mux_layer.lab_line[5] gclk_to_ll_mux_layer.lab_line[6] gclk_to_ll_mux_layer.lab_line[10] gclk_to_ll_mux_layer.lab_line[12] gclk_to_ll_mux_layer.lab_line[13] gclk_to_ll_mux_layer.lab_line[15] gclk_to_ll_mux_layer.lab_line[16] gclk_to_ll_mux_layer.lab_line[19] gclk_to_ll_mux_layer.lab_line[20] gclk_to_ll_mux_layer.lab_line[23] gclk_to_ll_mux_layer.lab_line[24]"/>
+                    <mux name="lut2_dataa" output="lut[2].dataa" input="gclk_to_ll_mux_layer.lab_line[0] gclk_to_ll_mux_layer.lab_line[1] gclk_to_ll_mux_layer.lab_line[3] gclk_to_ll_mux_layer.lab_line[6]  gclk_to_ll_mux_layer.lab_line[8] gclk_to_ll_mux_layer.lab_line[9]  gclk_to_ll_mux_layer.lab_line[11] gclk_to_ll_mux_layer.lab_line[14] gclk_to_ll_mux_layer.lab_line[15] gclk_to_ll_mux_layer.lab_line[18] gclk_to_ll_mux_layer.lab_line[19] gclk_to_ll_mux_layer.lab_line[22] gclk_to_ll_mux_layer.lab_line[25]"/>
+                    <mux name="lut2_datab" output="lut[2].datab" input="gclk_to_ll_mux_layer.lab_line[2] gclk_to_ll_mux_layer.lab_line[4] gclk_to_ll_mux_layer.lab_line[5] gclk_to_ll_mux_layer.lab_line[7] gclk_to_ll_mux_layer.lab_line[10] gclk_to_ll_mux_layer.lab_line[12] gclk_to_ll_mux_layer.lab_line[13] gclk_to_ll_mux_layer.lab_line[16] gclk_to_ll_mux_layer.lab_line[17] gclk_to_ll_mux_layer.lab_line[20] gclk_to_ll_mux_layer.lab_line[21] gclk_to_ll_mux_layer.lab_line[23] gclk_to_ll_mux_layer.lab_line[24]"/>
+                    <mux name="lut2_datac" output="lut[2].datac" input="gclk_to_ll_mux_layer.lab_line[0] gclk_to_ll_mux_layer.lab_line[2] gclk_to_ll_mux_layer.lab_line[3] gclk_to_ll_mux_layer.lab_line[7] gclk_to_ll_mux_layer.lab_line[8]  gclk_to_ll_mux_layer.lab_line[9]  gclk_to_ll_mux_layer.lab_line[11] gclk_to_ll_mux_layer.lab_line[14] gclk_to_ll_mux_layer.lab_line[17] gclk_to_ll_mux_layer.lab_line[18] gclk_to_ll_mux_layer.lab_line[21] gclk_to_ll_mux_layer.lab_line[22] gclk_to_ll_mux_layer.lab_line[25]"/>
+                    <mux name="lut2_datad" output="lut[2].datad" input="gclk_to_ll_mux_layer.lab_line[1] gclk_to_ll_mux_layer.lab_line[4] gclk_to_ll_mux_layer.lab_line[5] gclk_to_ll_mux_layer.lab_line[6] gclk_to_ll_mux_layer.lab_line[10] gclk_to_ll_mux_layer.lab_line[12] gclk_to_ll_mux_layer.lab_line[13] gclk_to_ll_mux_layer.lab_line[15] gclk_to_ll_mux_layer.lab_line[16] gclk_to_ll_mux_layer.lab_line[19] gclk_to_ll_mux_layer.lab_line[20] gclk_to_ll_mux_layer.lab_line[23] gclk_to_ll_mux_layer.lab_line[24]"/>
+                    <mux name="lut3_dataa" output="lut[3].dataa" input="gclk_to_ll_mux_layer.lab_line[0] gclk_to_ll_mux_layer.lab_line[1] gclk_to_ll_mux_layer.lab_line[3] gclk_to_ll_mux_layer.lab_line[6]  gclk_to_ll_mux_layer.lab_line[8] gclk_to_ll_mux_layer.lab_line[9]  gclk_to_ll_mux_layer.lab_line[11] gclk_to_ll_mux_layer.lab_line[14] gclk_to_ll_mux_layer.lab_line[15] gclk_to_ll_mux_layer.lab_line[18] gclk_to_ll_mux_layer.lab_line[19] gclk_to_ll_mux_layer.lab_line[22] gclk_to_ll_mux_layer.lab_line[25]"/>
+                    <mux name="lut3_datab" output="lut[3].datab" input="gclk_to_ll_mux_layer.lab_line[2] gclk_to_ll_mux_layer.lab_line[4] gclk_to_ll_mux_layer.lab_line[5] gclk_to_ll_mux_layer.lab_line[7] gclk_to_ll_mux_layer.lab_line[10] gclk_to_ll_mux_layer.lab_line[12] gclk_to_ll_mux_layer.lab_line[13] gclk_to_ll_mux_layer.lab_line[16] gclk_to_ll_mux_layer.lab_line[17] gclk_to_ll_mux_layer.lab_line[20] gclk_to_ll_mux_layer.lab_line[21] gclk_to_ll_mux_layer.lab_line[23] gclk_to_ll_mux_layer.lab_line[24]"/>
+                    <mux name="lut3_datac" output="lut[3].datac" input="gclk_to_ll_mux_layer.lab_line[0] gclk_to_ll_mux_layer.lab_line[2] gclk_to_ll_mux_layer.lab_line[3] gclk_to_ll_mux_layer.lab_line[7] gclk_to_ll_mux_layer.lab_line[8]  gclk_to_ll_mux_layer.lab_line[9]  gclk_to_ll_mux_layer.lab_line[11] gclk_to_ll_mux_layer.lab_line[14] gclk_to_ll_mux_layer.lab_line[17] gclk_to_ll_mux_layer.lab_line[18] gclk_to_ll_mux_layer.lab_line[21] gclk_to_ll_mux_layer.lab_line[22] gclk_to_ll_mux_layer.lab_line[25]"/>
+                    <mux name="lut3_datad" output="lut[3].datad" input="gclk_to_ll_mux_layer.lab_line[1] gclk_to_ll_mux_layer.lab_line[4] gclk_to_ll_mux_layer.lab_line[5] gclk_to_ll_mux_layer.lab_line[6] gclk_to_ll_mux_layer.lab_line[10] gclk_to_ll_mux_layer.lab_line[12] gclk_to_ll_mux_layer.lab_line[13] gclk_to_ll_mux_layer.lab_line[15] gclk_to_ll_mux_layer.lab_line[16] gclk_to_ll_mux_layer.lab_line[19] gclk_to_ll_mux_layer.lab_line[20] gclk_to_ll_mux_layer.lab_line[23] gclk_to_ll_mux_layer.lab_line[24]"/>
+                    <mux name="lut4_dataa" output="lut[4].dataa" input="gclk_to_ll_mux_layer.lab_line[0] gclk_to_ll_mux_layer.lab_line[1] gclk_to_ll_mux_layer.lab_line[3] gclk_to_ll_mux_layer.lab_line[6]  gclk_to_ll_mux_layer.lab_line[8] gclk_to_ll_mux_layer.lab_line[9]  gclk_to_ll_mux_layer.lab_line[11] gclk_to_ll_mux_layer.lab_line[14] gclk_to_ll_mux_layer.lab_line[15] gclk_to_ll_mux_layer.lab_line[18] gclk_to_ll_mux_layer.lab_line[19] gclk_to_ll_mux_layer.lab_line[22] gclk_to_ll_mux_layer.lab_line[25]"/>
+                    <mux name="lut4_datab" output="lut[4].datab" input="gclk_to_ll_mux_layer.lab_line[2] gclk_to_ll_mux_layer.lab_line[4] gclk_to_ll_mux_layer.lab_line[5] gclk_to_ll_mux_layer.lab_line[7] gclk_to_ll_mux_layer.lab_line[10] gclk_to_ll_mux_layer.lab_line[12] gclk_to_ll_mux_layer.lab_line[13] gclk_to_ll_mux_layer.lab_line[16] gclk_to_ll_mux_layer.lab_line[17] gclk_to_ll_mux_layer.lab_line[20] gclk_to_ll_mux_layer.lab_line[21] gclk_to_ll_mux_layer.lab_line[23] gclk_to_ll_mux_layer.lab_line[24]"/>
+                    <mux name="lut4_datac" output="lut[4].datac" input="gclk_to_ll_mux_layer.lab_line[0] gclk_to_ll_mux_layer.lab_line[2] gclk_to_ll_mux_layer.lab_line[3] gclk_to_ll_mux_layer.lab_line[7] gclk_to_ll_mux_layer.lab_line[8]  gclk_to_ll_mux_layer.lab_line[9]  gclk_to_ll_mux_layer.lab_line[11] gclk_to_ll_mux_layer.lab_line[14] gclk_to_ll_mux_layer.lab_line[17] gclk_to_ll_mux_layer.lab_line[18] gclk_to_ll_mux_layer.lab_line[21] gclk_to_ll_mux_layer.lab_line[22] gclk_to_ll_mux_layer.lab_line[25]"/>
+                    <mux name="lut4_datad" output="lut[4].datad" input="gclk_to_ll_mux_layer.lab_line[1] gclk_to_ll_mux_layer.lab_line[4] gclk_to_ll_mux_layer.lab_line[5] gclk_to_ll_mux_layer.lab_line[6] gclk_to_ll_mux_layer.lab_line[10] gclk_to_ll_mux_layer.lab_line[12] gclk_to_ll_mux_layer.lab_line[13] gclk_to_ll_mux_layer.lab_line[15] gclk_to_ll_mux_layer.lab_line[16] gclk_to_ll_mux_layer.lab_line[19] gclk_to_ll_mux_layer.lab_line[20] gclk_to_ll_mux_layer.lab_line[23] gclk_to_ll_mux_layer.lab_line[24]"/>
+                    <mux name="lut5_dataa" output="lut[5].dataa" input="gclk_to_ll_mux_layer.lab_line[0] gclk_to_ll_mux_layer.lab_line[1] gclk_to_ll_mux_layer.lab_line[3] gclk_to_ll_mux_layer.lab_line[6]  gclk_to_ll_mux_layer.lab_line[8] gclk_to_ll_mux_layer.lab_line[9]  gclk_to_ll_mux_layer.lab_line[11] gclk_to_ll_mux_layer.lab_line[14] gclk_to_ll_mux_layer.lab_line[15] gclk_to_ll_mux_layer.lab_line[18] gclk_to_ll_mux_layer.lab_line[19] gclk_to_ll_mux_layer.lab_line[22] gclk_to_ll_mux_layer.lab_line[25]"/>
+                    <mux name="lut5_datab" output="lut[5].datab" input="gclk_to_ll_mux_layer.lab_line[2] gclk_to_ll_mux_layer.lab_line[4] gclk_to_ll_mux_layer.lab_line[5] gclk_to_ll_mux_layer.lab_line[7] gclk_to_ll_mux_layer.lab_line[10] gclk_to_ll_mux_layer.lab_line[12] gclk_to_ll_mux_layer.lab_line[13] gclk_to_ll_mux_layer.lab_line[16] gclk_to_ll_mux_layer.lab_line[17] gclk_to_ll_mux_layer.lab_line[20] gclk_to_ll_mux_layer.lab_line[21] gclk_to_ll_mux_layer.lab_line[23] gclk_to_ll_mux_layer.lab_line[24]"/>
+                    <mux name="lut5_datac" output="lut[5].datac" input="gclk_to_ll_mux_layer.lab_line[0] gclk_to_ll_mux_layer.lab_line[2] gclk_to_ll_mux_layer.lab_line[3] gclk_to_ll_mux_layer.lab_line[7] gclk_to_ll_mux_layer.lab_line[8]  gclk_to_ll_mux_layer.lab_line[9]  gclk_to_ll_mux_layer.lab_line[11] gclk_to_ll_mux_layer.lab_line[14] gclk_to_ll_mux_layer.lab_line[17] gclk_to_ll_mux_layer.lab_line[18] gclk_to_ll_mux_layer.lab_line[21] gclk_to_ll_mux_layer.lab_line[22] gclk_to_ll_mux_layer.lab_line[25]"/>
+                    <mux name="lut5_datad" output="lut[5].datad" input="gclk_to_ll_mux_layer.lab_line[1] gclk_to_ll_mux_layer.lab_line[4] gclk_to_ll_mux_layer.lab_line[5] gclk_to_ll_mux_layer.lab_line[6] gclk_to_ll_mux_layer.lab_line[10] gclk_to_ll_mux_layer.lab_line[12] gclk_to_ll_mux_layer.lab_line[13] gclk_to_ll_mux_layer.lab_line[15] gclk_to_ll_mux_layer.lab_line[16] gclk_to_ll_mux_layer.lab_line[19] gclk_to_ll_mux_layer.lab_line[20] gclk_to_ll_mux_layer.lab_line[23] gclk_to_ll_mux_layer.lab_line[24]"/>
+                    <mux name="lut6_dataa" output="lut[6].dataa" input="gclk_to_ll_mux_layer.lab_line[0] gclk_to_ll_mux_layer.lab_line[1] gclk_to_ll_mux_layer.lab_line[3] gclk_to_ll_mux_layer.lab_line[6]  gclk_to_ll_mux_layer.lab_line[8] gclk_to_ll_mux_layer.lab_line[9]  gclk_to_ll_mux_layer.lab_line[11] gclk_to_ll_mux_layer.lab_line[14] gclk_to_ll_mux_layer.lab_line[15] gclk_to_ll_mux_layer.lab_line[18] gclk_to_ll_mux_layer.lab_line[19] gclk_to_ll_mux_layer.lab_line[22] gclk_to_ll_mux_layer.lab_line[25]"/>
+                    <mux name="lut6_datab" output="lut[6].datab" input="gclk_to_ll_mux_layer.lab_line[2] gclk_to_ll_mux_layer.lab_line[4] gclk_to_ll_mux_layer.lab_line[5] gclk_to_ll_mux_layer.lab_line[7] gclk_to_ll_mux_layer.lab_line[10] gclk_to_ll_mux_layer.lab_line[12] gclk_to_ll_mux_layer.lab_line[13] gclk_to_ll_mux_layer.lab_line[16] gclk_to_ll_mux_layer.lab_line[17] gclk_to_ll_mux_layer.lab_line[20] gclk_to_ll_mux_layer.lab_line[21] gclk_to_ll_mux_layer.lab_line[23] gclk_to_ll_mux_layer.lab_line[24]"/>
+                    <mux name="lut6_datac" output="lut[6].datac" input="gclk_to_ll_mux_layer.lab_line[0] gclk_to_ll_mux_layer.lab_line[2] gclk_to_ll_mux_layer.lab_line[3] gclk_to_ll_mux_layer.lab_line[7] gclk_to_ll_mux_layer.lab_line[8]  gclk_to_ll_mux_layer.lab_line[9]  gclk_to_ll_mux_layer.lab_line[11] gclk_to_ll_mux_layer.lab_line[14] gclk_to_ll_mux_layer.lab_line[17] gclk_to_ll_mux_layer.lab_line[18] gclk_to_ll_mux_layer.lab_line[21] gclk_to_ll_mux_layer.lab_line[22] gclk_to_ll_mux_layer.lab_line[25]"/>
+                    <mux name="lut6_datad" output="lut[6].datad" input="gclk_to_ll_mux_layer.lab_line[1] gclk_to_ll_mux_layer.lab_line[4] gclk_to_ll_mux_layer.lab_line[5] gclk_to_ll_mux_layer.lab_line[6] gclk_to_ll_mux_layer.lab_line[10] gclk_to_ll_mux_layer.lab_line[12] gclk_to_ll_mux_layer.lab_line[13] gclk_to_ll_mux_layer.lab_line[15] gclk_to_ll_mux_layer.lab_line[16] gclk_to_ll_mux_layer.lab_line[19] gclk_to_ll_mux_layer.lab_line[20] gclk_to_ll_mux_layer.lab_line[23] gclk_to_ll_mux_layer.lab_line[24]"/>
+                    <mux name="lut7_dataa" output="lut[7].dataa" input="gclk_to_ll_mux_layer.lab_line[0] gclk_to_ll_mux_layer.lab_line[1] gclk_to_ll_mux_layer.lab_line[3] gclk_to_ll_mux_layer.lab_line[6]  gclk_to_ll_mux_layer.lab_line[8] gclk_to_ll_mux_layer.lab_line[9]  gclk_to_ll_mux_layer.lab_line[11] gclk_to_ll_mux_layer.lab_line[14] gclk_to_ll_mux_layer.lab_line[15] gclk_to_ll_mux_layer.lab_line[18] gclk_to_ll_mux_layer.lab_line[19] gclk_to_ll_mux_layer.lab_line[22] gclk_to_ll_mux_layer.lab_line[25]"/>
+                    <mux name="lut7_datab" output="lut[7].datab" input="gclk_to_ll_mux_layer.lab_line[2] gclk_to_ll_mux_layer.lab_line[4] gclk_to_ll_mux_layer.lab_line[5] gclk_to_ll_mux_layer.lab_line[7] gclk_to_ll_mux_layer.lab_line[10] gclk_to_ll_mux_layer.lab_line[12] gclk_to_ll_mux_layer.lab_line[13] gclk_to_ll_mux_layer.lab_line[16] gclk_to_ll_mux_layer.lab_line[17] gclk_to_ll_mux_layer.lab_line[20] gclk_to_ll_mux_layer.lab_line[21] gclk_to_ll_mux_layer.lab_line[23] gclk_to_ll_mux_layer.lab_line[24]"/>
+                    <mux name="lut7_datac" output="lut[7].datac" input="gclk_to_ll_mux_layer.lab_line[0] gclk_to_ll_mux_layer.lab_line[2] gclk_to_ll_mux_layer.lab_line[3] gclk_to_ll_mux_layer.lab_line[7] gclk_to_ll_mux_layer.lab_line[8]  gclk_to_ll_mux_layer.lab_line[9]  gclk_to_ll_mux_layer.lab_line[11] gclk_to_ll_mux_layer.lab_line[14] gclk_to_ll_mux_layer.lab_line[17] gclk_to_ll_mux_layer.lab_line[18] gclk_to_ll_mux_layer.lab_line[21] gclk_to_ll_mux_layer.lab_line[22] gclk_to_ll_mux_layer.lab_line[25]"/>
+                    <mux name="lut7_datad" output="lut[7].datad" input="gclk_to_ll_mux_layer.lab_line[1] gclk_to_ll_mux_layer.lab_line[4] gclk_to_ll_mux_layer.lab_line[5] gclk_to_ll_mux_layer.lab_line[6] gclk_to_ll_mux_layer.lab_line[10] gclk_to_ll_mux_layer.lab_line[12] gclk_to_ll_mux_layer.lab_line[13] gclk_to_ll_mux_layer.lab_line[15] gclk_to_ll_mux_layer.lab_line[16] gclk_to_ll_mux_layer.lab_line[19] gclk_to_ll_mux_layer.lab_line[20] gclk_to_ll_mux_layer.lab_line[23] gclk_to_ll_mux_layer.lab_line[24]"/>
+                    <mux name="lut8_dataa" output="lut[8].dataa" input="gclk_to_ll_mux_layer.lab_line[0] gclk_to_ll_mux_layer.lab_line[1] gclk_to_ll_mux_layer.lab_line[3] gclk_to_ll_mux_layer.lab_line[6]  gclk_to_ll_mux_layer.lab_line[8] gclk_to_ll_mux_layer.lab_line[9]  gclk_to_ll_mux_layer.lab_line[11] gclk_to_ll_mux_layer.lab_line[14] gclk_to_ll_mux_layer.lab_line[15] gclk_to_ll_mux_layer.lab_line[18] gclk_to_ll_mux_layer.lab_line[19] gclk_to_ll_mux_layer.lab_line[22] gclk_to_ll_mux_layer.lab_line[25]"/>
+                    <mux name="lut8_datab" output="lut[8].datab" input="gclk_to_ll_mux_layer.lab_line[2] gclk_to_ll_mux_layer.lab_line[4] gclk_to_ll_mux_layer.lab_line[5] gclk_to_ll_mux_layer.lab_line[7] gclk_to_ll_mux_layer.lab_line[10] gclk_to_ll_mux_layer.lab_line[12] gclk_to_ll_mux_layer.lab_line[13] gclk_to_ll_mux_layer.lab_line[16] gclk_to_ll_mux_layer.lab_line[17] gclk_to_ll_mux_layer.lab_line[20] gclk_to_ll_mux_layer.lab_line[21] gclk_to_ll_mux_layer.lab_line[23] gclk_to_ll_mux_layer.lab_line[24]"/>
+                    <mux name="lut8_datac" output="lut[8].datac" input="gclk_to_ll_mux_layer.lab_line[0] gclk_to_ll_mux_layer.lab_line[2] gclk_to_ll_mux_layer.lab_line[3] gclk_to_ll_mux_layer.lab_line[7] gclk_to_ll_mux_layer.lab_line[8]  gclk_to_ll_mux_layer.lab_line[9]  gclk_to_ll_mux_layer.lab_line[11] gclk_to_ll_mux_layer.lab_line[14] gclk_to_ll_mux_layer.lab_line[17] gclk_to_ll_mux_layer.lab_line[18] gclk_to_ll_mux_layer.lab_line[21] gclk_to_ll_mux_layer.lab_line[22] gclk_to_ll_mux_layer.lab_line[25]"/>
+                    <mux name="lut8_datad" output="lut[8].datad" input="gclk_to_ll_mux_layer.lab_line[1] gclk_to_ll_mux_layer.lab_line[4] gclk_to_ll_mux_layer.lab_line[5] gclk_to_ll_mux_layer.lab_line[6] gclk_to_ll_mux_layer.lab_line[10] gclk_to_ll_mux_layer.lab_line[12] gclk_to_ll_mux_layer.lab_line[13] gclk_to_ll_mux_layer.lab_line[15] gclk_to_ll_mux_layer.lab_line[16] gclk_to_ll_mux_layer.lab_line[19] gclk_to_ll_mux_layer.lab_line[20] gclk_to_ll_mux_layer.lab_line[23] gclk_to_ll_mux_layer.lab_line[24]"/>
+                    <mux name="lut9_dataa" output="lut[9].dataa" input="gclk_to_ll_mux_layer.lab_line[0] gclk_to_ll_mux_layer.lab_line[1] gclk_to_ll_mux_layer.lab_line[3] gclk_to_ll_mux_layer.lab_line[6]  gclk_to_ll_mux_layer.lab_line[8] gclk_to_ll_mux_layer.lab_line[9]  gclk_to_ll_mux_layer.lab_line[11] gclk_to_ll_mux_layer.lab_line[14] gclk_to_ll_mux_layer.lab_line[15] gclk_to_ll_mux_layer.lab_line[18] gclk_to_ll_mux_layer.lab_line[19] gclk_to_ll_mux_layer.lab_line[22] gclk_to_ll_mux_layer.lab_line[25]"/>
+                    <mux name="lut9_datab" output="lut[9].datab" input="gclk_to_ll_mux_layer.lab_line[2] gclk_to_ll_mux_layer.lab_line[4] gclk_to_ll_mux_layer.lab_line[5] gclk_to_ll_mux_layer.lab_line[7] gclk_to_ll_mux_layer.lab_line[10] gclk_to_ll_mux_layer.lab_line[12] gclk_to_ll_mux_layer.lab_line[13] gclk_to_ll_mux_layer.lab_line[16] gclk_to_ll_mux_layer.lab_line[17] gclk_to_ll_mux_layer.lab_line[20] gclk_to_ll_mux_layer.lab_line[21] gclk_to_ll_mux_layer.lab_line[23] gclk_to_ll_mux_layer.lab_line[24]"/>
+                    <mux name="lut9_datac" output="lut[9].datac" input="gclk_to_ll_mux_layer.lab_line[0] gclk_to_ll_mux_layer.lab_line[2] gclk_to_ll_mux_layer.lab_line[3] gclk_to_ll_mux_layer.lab_line[7] gclk_to_ll_mux_layer.lab_line[8]  gclk_to_ll_mux_layer.lab_line[9]  gclk_to_ll_mux_layer.lab_line[11] gclk_to_ll_mux_layer.lab_line[14] gclk_to_ll_mux_layer.lab_line[17] gclk_to_ll_mux_layer.lab_line[18] gclk_to_ll_mux_layer.lab_line[21] gclk_to_ll_mux_layer.lab_line[22] gclk_to_ll_mux_layer.lab_line[25]"/>
+                    <mux name="lut9_datad" output="lut[9].datad" input="gclk_to_ll_mux_layer.lab_line[1] gclk_to_ll_mux_layer.lab_line[4] gclk_to_ll_mux_layer.lab_line[5] gclk_to_ll_mux_layer.lab_line[6] gclk_to_ll_mux_layer.lab_line[10] gclk_to_ll_mux_layer.lab_line[12] gclk_to_ll_mux_layer.lab_line[13] gclk_to_ll_mux_layer.lab_line[15] gclk_to_ll_mux_layer.lab_line[16] gclk_to_ll_mux_layer.lab_line[19] gclk_to_ll_mux_layer.lab_line[20] gclk_to_ll_mux_layer.lab_line[23] gclk_to_ll_mux_layer.lab_line[24]"/>
+
+                    <!-- LE outputs -->
+                    <direct name="le0_buffer0" input="lut[0].combout" output="gclk_to_ll_mux_layer.lab_outputs[0]"/>
+                    <direct name="le0_buffer1" input="lut[0].combout" output="gclk_to_ll_mux_layer.lab_outputs[1]"/>
+                    <direct name="le1_buffer0" input="lut[1].combout" output="gclk_to_ll_mux_layer.lab_outputs[2]"/>
+                    <direct name="le1_buffer1" input="lut[1].combout" output="gclk_to_ll_mux_layer.lab_outputs[3]"/>
+                    <direct name="le2_buffer0" input="lut[2].combout" output="gclk_to_ll_mux_layer.lab_outputs[4]"/>
+                    <direct name="le2_buffer1" input="lut[2].combout" output="gclk_to_ll_mux_layer.lab_outputs[5]"/>
+                    <direct name="le3_buffer0" input="lut[3].combout" output="gclk_to_ll_mux_layer.lab_outputs[6]"/>
+                    <direct name="le3_buffer1" input="lut[3].combout" output="gclk_to_ll_mux_layer.lab_outputs[7]"/>
+                    <direct name="le4_buffer0" input="lut[4].combout" output="gclk_to_ll_mux_layer.lab_outputs[8]"/>
+                    <direct name="le4_buffer1" input="lut[4].combout" output="gclk_to_ll_mux_layer.lab_outputs[9]"/>
+                    <direct name="le5_buffer0" input="lut[5].combout" output="gclk_to_ll_mux_layer.lab_outputs[10]"/>
+                    <direct name="le5_buffer1" input="lut[5].combout" output="gclk_to_ll_mux_layer.lab_outputs[11]"/>
+                    <direct name="le6_buffer0" input="lut[6].combout" output="gclk_to_ll_mux_layer.lab_outputs[12]"/>
+                    <direct name="le6_buffer1" input="lut[6].combout" output="gclk_to_ll_mux_layer.lab_outputs[13]"/>
+                    <direct name="le7_buffer0" input="lut[7].combout" output="gclk_to_ll_mux_layer.lab_outputs[14]"/>
+                    <direct name="le7_buffer1" input="lut[7].combout" output="gclk_to_ll_mux_layer.lab_outputs[15]"/>
+                    <direct name="le8_buffer0" input="lut[8].combout" output="gclk_to_ll_mux_layer.lab_outputs[16]"/>
+                    <direct name="le8_buffer1" input="lut[8].combout" output="gclk_to_ll_mux_layer.lab_outputs[17]"/>
+                    <direct name="le9_buffer0" input="lut[9].combout" output="gclk_to_ll_mux_layer.lab_outputs[18]"/>
+                    <direct name="le9_buffer1" input="lut[9].combout" output="gclk_to_ll_mux_layer.lab_outputs[19]"/>
                 </interconnect>
             </pb_type>
 
-            <interconnect>
-                <!-- Local line to LUT input -->
-                <mux name="lut0_dataa" output="lut[0].dataa" input="lab.lab_line[0] lab.lab_line[1] lab.lab_line[3] lab.lab_line[6]  lab.lab_line[8] lab.lab_line[9]  lab.lab_line[11] lab.lab_line[14] lab.lab_line[15] lab.lab_line[18] lab.lab_line[19] lab.lab_line[22] lab.lab_line[25]"/>
-                <mux name="lut0_datab" output="lut[0].datab" input="lab.lab_line[2] lab.lab_line[4] lab.lab_line[5] lab.lab_line[7] lab.lab_line[10] lab.lab_line[12] lab.lab_line[13] lab.lab_line[16] lab.lab_line[17] lab.lab_line[20] lab.lab_line[21] lab.lab_line[23] lab.lab_line[24]"/>
-                <mux name="lut0_datac" output="lut[0].datac" input="lab.lab_line[0] lab.lab_line[2] lab.lab_line[3] lab.lab_line[7] lab.lab_line[8]  lab.lab_line[9]  lab.lab_line[11] lab.lab_line[14] lab.lab_line[17] lab.lab_line[18] lab.lab_line[21] lab.lab_line[22] lab.lab_line[25]"/>
-                <mux name="lut0_datad" output="lut[0].datad" input="lab.lab_line[1] lab.lab_line[4] lab.lab_line[5] lab.lab_line[6] lab.lab_line[10] lab.lab_line[12] lab.lab_line[13] lab.lab_line[15] lab.lab_line[16] lab.lab_line[19] lab.lab_line[20] lab.lab_line[23] lab.lab_line[24]"/>
-                <mux name="lut1_dataa" output="lut[1].dataa" input="lab.lab_line[0] lab.lab_line[1] lab.lab_line[3] lab.lab_line[6]  lab.lab_line[8] lab.lab_line[9]  lab.lab_line[11] lab.lab_line[14] lab.lab_line[15] lab.lab_line[18] lab.lab_line[19] lab.lab_line[22] lab.lab_line[25]"/>
-                <mux name="lut1_datab" output="lut[1].datab" input="lab.lab_line[2] lab.lab_line[4] lab.lab_line[5] lab.lab_line[7] lab.lab_line[10] lab.lab_line[12] lab.lab_line[13] lab.lab_line[16] lab.lab_line[17] lab.lab_line[20] lab.lab_line[21] lab.lab_line[23] lab.lab_line[24]"/>
-                <mux name="lut1_datac" output="lut[1].datac" input="lab.lab_line[0] lab.lab_line[2] lab.lab_line[3] lab.lab_line[7] lab.lab_line[8]  lab.lab_line[9]  lab.lab_line[11] lab.lab_line[14] lab.lab_line[17] lab.lab_line[18] lab.lab_line[21] lab.lab_line[22] lab.lab_line[25]"/>
-                <mux name="lut1_datad" output="lut[1].datad" input="lab.lab_line[1] lab.lab_line[4] lab.lab_line[5] lab.lab_line[6] lab.lab_line[10] lab.lab_line[12] lab.lab_line[13] lab.lab_line[15] lab.lab_line[16] lab.lab_line[19] lab.lab_line[20] lab.lab_line[23] lab.lab_line[24]"/>
-                <mux name="lut2_dataa" output="lut[2].dataa" input="lab.lab_line[0] lab.lab_line[1] lab.lab_line[3] lab.lab_line[6]  lab.lab_line[8] lab.lab_line[9]  lab.lab_line[11] lab.lab_line[14] lab.lab_line[15] lab.lab_line[18] lab.lab_line[19] lab.lab_line[22] lab.lab_line[25]"/>
-                <mux name="lut2_datab" output="lut[2].datab" input="lab.lab_line[2] lab.lab_line[4] lab.lab_line[5] lab.lab_line[7] lab.lab_line[10] lab.lab_line[12] lab.lab_line[13] lab.lab_line[16] lab.lab_line[17] lab.lab_line[20] lab.lab_line[21] lab.lab_line[23] lab.lab_line[24]"/>
-                <mux name="lut2_datac" output="lut[2].datac" input="lab.lab_line[0] lab.lab_line[2] lab.lab_line[3] lab.lab_line[7] lab.lab_line[8]  lab.lab_line[9]  lab.lab_line[11] lab.lab_line[14] lab.lab_line[17] lab.lab_line[18] lab.lab_line[21] lab.lab_line[22] lab.lab_line[25]"/>
-                <mux name="lut2_datad" output="lut[2].datad" input="lab.lab_line[1] lab.lab_line[4] lab.lab_line[5] lab.lab_line[6] lab.lab_line[10] lab.lab_line[12] lab.lab_line[13] lab.lab_line[15] lab.lab_line[16] lab.lab_line[19] lab.lab_line[20] lab.lab_line[23] lab.lab_line[24]"/>
-                <mux name="lut3_dataa" output="lut[3].dataa" input="lab.lab_line[0] lab.lab_line[1] lab.lab_line[3] lab.lab_line[6]  lab.lab_line[8] lab.lab_line[9]  lab.lab_line[11] lab.lab_line[14] lab.lab_line[15] lab.lab_line[18] lab.lab_line[19] lab.lab_line[22] lab.lab_line[25]"/>
-                <mux name="lut3_datab" output="lut[3].datab" input="lab.lab_line[2] lab.lab_line[4] lab.lab_line[5] lab.lab_line[7] lab.lab_line[10] lab.lab_line[12] lab.lab_line[13] lab.lab_line[16] lab.lab_line[17] lab.lab_line[20] lab.lab_line[21] lab.lab_line[23] lab.lab_line[24]"/>
-                <mux name="lut3_datac" output="lut[3].datac" input="lab.lab_line[0] lab.lab_line[2] lab.lab_line[3] lab.lab_line[7] lab.lab_line[8]  lab.lab_line[9]  lab.lab_line[11] lab.lab_line[14] lab.lab_line[17] lab.lab_line[18] lab.lab_line[21] lab.lab_line[22] lab.lab_line[25]"/>
-                <mux name="lut3_datad" output="lut[3].datad" input="lab.lab_line[1] lab.lab_line[4] lab.lab_line[5] lab.lab_line[6] lab.lab_line[10] lab.lab_line[12] lab.lab_line[13] lab.lab_line[15] lab.lab_line[16] lab.lab_line[19] lab.lab_line[20] lab.lab_line[23] lab.lab_line[24]"/>
-                <mux name="lut4_dataa" output="lut[4].dataa" input="lab.lab_line[0] lab.lab_line[1] lab.lab_line[3] lab.lab_line[6]  lab.lab_line[8] lab.lab_line[9]  lab.lab_line[11] lab.lab_line[14] lab.lab_line[15] lab.lab_line[18] lab.lab_line[19] lab.lab_line[22] lab.lab_line[25]"/>
-                <mux name="lut4_datab" output="lut[4].datab" input="lab.lab_line[2] lab.lab_line[4] lab.lab_line[5] lab.lab_line[7] lab.lab_line[10] lab.lab_line[12] lab.lab_line[13] lab.lab_line[16] lab.lab_line[17] lab.lab_line[20] lab.lab_line[21] lab.lab_line[23] lab.lab_line[24]"/>
-                <mux name="lut4_datac" output="lut[4].datac" input="lab.lab_line[0] lab.lab_line[2] lab.lab_line[3] lab.lab_line[7] lab.lab_line[8]  lab.lab_line[9]  lab.lab_line[11] lab.lab_line[14] lab.lab_line[17] lab.lab_line[18] lab.lab_line[21] lab.lab_line[22] lab.lab_line[25]"/>
-                <mux name="lut4_datad" output="lut[4].datad" input="lab.lab_line[1] lab.lab_line[4] lab.lab_line[5] lab.lab_line[6] lab.lab_line[10] lab.lab_line[12] lab.lab_line[13] lab.lab_line[15] lab.lab_line[16] lab.lab_line[19] lab.lab_line[20] lab.lab_line[23] lab.lab_line[24]"/>
-                <mux name="lut5_dataa" output="lut[5].dataa" input="lab.lab_line[0] lab.lab_line[1] lab.lab_line[3] lab.lab_line[6]  lab.lab_line[8] lab.lab_line[9]  lab.lab_line[11] lab.lab_line[14] lab.lab_line[15] lab.lab_line[18] lab.lab_line[19] lab.lab_line[22] lab.lab_line[25]"/>
-                <mux name="lut5_datab" output="lut[5].datab" input="lab.lab_line[2] lab.lab_line[4] lab.lab_line[5] lab.lab_line[7] lab.lab_line[10] lab.lab_line[12] lab.lab_line[13] lab.lab_line[16] lab.lab_line[17] lab.lab_line[20] lab.lab_line[21] lab.lab_line[23] lab.lab_line[24]"/>
-                <mux name="lut5_datac" output="lut[5].datac" input="lab.lab_line[0] lab.lab_line[2] lab.lab_line[3] lab.lab_line[7] lab.lab_line[8]  lab.lab_line[9]  lab.lab_line[11] lab.lab_line[14] lab.lab_line[17] lab.lab_line[18] lab.lab_line[21] lab.lab_line[22] lab.lab_line[25]"/>
-                <mux name="lut5_datad" output="lut[5].datad" input="lab.lab_line[1] lab.lab_line[4] lab.lab_line[5] lab.lab_line[6] lab.lab_line[10] lab.lab_line[12] lab.lab_line[13] lab.lab_line[15] lab.lab_line[16] lab.lab_line[19] lab.lab_line[20] lab.lab_line[23] lab.lab_line[24]"/>
-                <mux name="lut6_dataa" output="lut[6].dataa" input="lab.lab_line[0] lab.lab_line[1] lab.lab_line[3] lab.lab_line[6]  lab.lab_line[8] lab.lab_line[9]  lab.lab_line[11] lab.lab_line[14] lab.lab_line[15] lab.lab_line[18] lab.lab_line[19] lab.lab_line[22] lab.lab_line[25]"/>
-                <mux name="lut6_datab" output="lut[6].datab" input="lab.lab_line[2] lab.lab_line[4] lab.lab_line[5] lab.lab_line[7] lab.lab_line[10] lab.lab_line[12] lab.lab_line[13] lab.lab_line[16] lab.lab_line[17] lab.lab_line[20] lab.lab_line[21] lab.lab_line[23] lab.lab_line[24]"/>
-                <mux name="lut6_datac" output="lut[6].datac" input="lab.lab_line[0] lab.lab_line[2] lab.lab_line[3] lab.lab_line[7] lab.lab_line[8]  lab.lab_line[9]  lab.lab_line[11] lab.lab_line[14] lab.lab_line[17] lab.lab_line[18] lab.lab_line[21] lab.lab_line[22] lab.lab_line[25]"/>
-                <mux name="lut6_datad" output="lut[6].datad" input="lab.lab_line[1] lab.lab_line[4] lab.lab_line[5] lab.lab_line[6] lab.lab_line[10] lab.lab_line[12] lab.lab_line[13] lab.lab_line[15] lab.lab_line[16] lab.lab_line[19] lab.lab_line[20] lab.lab_line[23] lab.lab_line[24]"/>
-                <mux name="lut7_dataa" output="lut[7].dataa" input="lab.lab_line[0] lab.lab_line[1] lab.lab_line[3] lab.lab_line[6]  lab.lab_line[8] lab.lab_line[9]  lab.lab_line[11] lab.lab_line[14] lab.lab_line[15] lab.lab_line[18] lab.lab_line[19] lab.lab_line[22] lab.lab_line[25]"/>
-                <mux name="lut7_datab" output="lut[7].datab" input="lab.lab_line[2] lab.lab_line[4] lab.lab_line[5] lab.lab_line[7] lab.lab_line[10] lab.lab_line[12] lab.lab_line[13] lab.lab_line[16] lab.lab_line[17] lab.lab_line[20] lab.lab_line[21] lab.lab_line[23] lab.lab_line[24]"/>
-                <mux name="lut7_datac" output="lut[7].datac" input="lab.lab_line[0] lab.lab_line[2] lab.lab_line[3] lab.lab_line[7] lab.lab_line[8]  lab.lab_line[9]  lab.lab_line[11] lab.lab_line[14] lab.lab_line[17] lab.lab_line[18] lab.lab_line[21] lab.lab_line[22] lab.lab_line[25]"/>
-                <mux name="lut7_datad" output="lut[7].datad" input="lab.lab_line[1] lab.lab_line[4] lab.lab_line[5] lab.lab_line[6] lab.lab_line[10] lab.lab_line[12] lab.lab_line[13] lab.lab_line[15] lab.lab_line[16] lab.lab_line[19] lab.lab_line[20] lab.lab_line[23] lab.lab_line[24]"/>
-                <mux name="lut8_dataa" output="lut[8].dataa" input="lab.lab_line[0] lab.lab_line[1] lab.lab_line[3] lab.lab_line[6]  lab.lab_line[8] lab.lab_line[9]  lab.lab_line[11] lab.lab_line[14] lab.lab_line[15] lab.lab_line[18] lab.lab_line[19] lab.lab_line[22] lab.lab_line[25]"/>
-                <mux name="lut8_datab" output="lut[8].datab" input="lab.lab_line[2] lab.lab_line[4] lab.lab_line[5] lab.lab_line[7] lab.lab_line[10] lab.lab_line[12] lab.lab_line[13] lab.lab_line[16] lab.lab_line[17] lab.lab_line[20] lab.lab_line[21] lab.lab_line[23] lab.lab_line[24]"/>
-                <mux name="lut8_datac" output="lut[8].datac" input="lab.lab_line[0] lab.lab_line[2] lab.lab_line[3] lab.lab_line[7] lab.lab_line[8]  lab.lab_line[9]  lab.lab_line[11] lab.lab_line[14] lab.lab_line[17] lab.lab_line[18] lab.lab_line[21] lab.lab_line[22] lab.lab_line[25]"/>
-                <mux name="lut8_datad" output="lut[8].datad" input="lab.lab_line[1] lab.lab_line[4] lab.lab_line[5] lab.lab_line[6] lab.lab_line[10] lab.lab_line[12] lab.lab_line[13] lab.lab_line[15] lab.lab_line[16] lab.lab_line[19] lab.lab_line[20] lab.lab_line[23] lab.lab_line[24]"/>
-                <mux name="lut9_dataa" output="lut[9].dataa" input="lab.lab_line[0] lab.lab_line[1] lab.lab_line[3] lab.lab_line[6]  lab.lab_line[8] lab.lab_line[9]  lab.lab_line[11] lab.lab_line[14] lab.lab_line[15] lab.lab_line[18] lab.lab_line[19] lab.lab_line[22] lab.lab_line[25]"/>
-                <mux name="lut9_datab" output="lut[9].datab" input="lab.lab_line[2] lab.lab_line[4] lab.lab_line[5] lab.lab_line[7] lab.lab_line[10] lab.lab_line[12] lab.lab_line[13] lab.lab_line[16] lab.lab_line[17] lab.lab_line[20] lab.lab_line[21] lab.lab_line[23] lab.lab_line[24]"/>
-                <mux name="lut9_datac" output="lut[9].datac" input="lab.lab_line[0] lab.lab_line[2] lab.lab_line[3] lab.lab_line[7] lab.lab_line[8]  lab.lab_line[9]  lab.lab_line[11] lab.lab_line[14] lab.lab_line[17] lab.lab_line[18] lab.lab_line[21] lab.lab_line[22] lab.lab_line[25]"/>
-                <mux name="lut9_datad" output="lut[9].datad" input="lab.lab_line[1] lab.lab_line[4] lab.lab_line[5] lab.lab_line[6] lab.lab_line[10] lab.lab_line[12] lab.lab_line[13] lab.lab_line[15] lab.lab_line[16] lab.lab_line[19] lab.lab_line[20] lab.lab_line[23] lab.lab_line[24]"/>
 
-                <!-- LE outputs -->
-                <direct name="le0_buffer0" input="lut[0].combout" output="lab.lab_outputs[0]"/>
-                <direct name="le0_buffer1" input="lut[0].combout" output="lab.lab_outputs[1]"/>
-                <direct name="le1_buffer0" input="lut[1].combout" output="lab.lab_outputs[2]"/>
-                <direct name="le1_buffer1" input="lut[1].combout" output="lab.lab_outputs[3]"/>
-                <direct name="le2_buffer0" input="lut[2].combout" output="lab.lab_outputs[4]"/>
-                <direct name="le2_buffer1" input="lut[2].combout" output="lab.lab_outputs[5]"/>
-                <direct name="le3_buffer0" input="lut[3].combout" output="lab.lab_outputs[6]"/>
-                <direct name="le3_buffer1" input="lut[3].combout" output="lab.lab_outputs[7]"/>
-                <direct name="le4_buffer0" input="lut[4].combout" output="lab.lab_outputs[8]"/>
-                <direct name="le4_buffer1" input="lut[4].combout" output="lab.lab_outputs[9]"/>
-                <direct name="le5_buffer0" input="lut[5].combout" output="lab.lab_outputs[10]"/>
-                <direct name="le5_buffer1" input="lut[5].combout" output="lab.lab_outputs[11]"/>
-                <direct name="le6_buffer0" input="lut[6].combout" output="lab.lab_outputs[12]"/>
-                <direct name="le6_buffer1" input="lut[6].combout" output="lab.lab_outputs[13]"/>
-                <direct name="le7_buffer0" input="lut[7].combout" output="lab.lab_outputs[14]"/>
-                <direct name="le7_buffer1" input="lut[7].combout" output="lab.lab_outputs[15]"/>
-                <direct name="le8_buffer0" input="lut[8].combout" output="lab.lab_outputs[16]"/>
-                <direct name="le8_buffer1" input="lut[8].combout" output="lab.lab_outputs[17]"/>
-                <direct name="le9_buffer0" input="lut[9].combout" output="lab.lab_outputs[18]"/>
-                <direct name="le9_buffer1" input="lut[9].combout" output="lab.lab_outputs[19]"/>
+            <interconnect>
+                <direct name="lab_line_0" input="lab.lab_line[0]" output="gclk_to_ll_mux_layer.lab_line[0]"/>
+                <direct name="lab_line_1" input="lab.lab_line[1]" output="gclk_to_ll_mux_layer.lab_line[1]"/>
+                <direct name="lab_line_2" input="lab.lab_line[2]" output="gclk_to_ll_mux_layer.lab_line[2]"/>
+                <direct name="lab_line_3" input="lab.lab_line[3]" output="gclk_to_ll_mux_layer.lab_line[3]"/>
+                <direct name="lab_line_4" input="lab.lab_line[4]" output="gclk_to_ll_mux_layer.lab_line[4]"/>
+                <direct name="lab_line_5" input="lab.lab_line[5]" output="gclk_to_ll_mux_layer.lab_line[5]"/>
+                <direct name="lab_line_6" input="lab.lab_line[6]" output="gclk_to_ll_mux_layer.lab_line[6]"/>
+                <direct name="lab_line_7" input="lab.lab_line[7]" output="gclk_to_ll_mux_layer.lab_line[7]"/>
+                <direct name="lab_line_8" input="lab.lab_line[8]" output="gclk_to_ll_mux_layer.lab_line[8]"/>
+                <direct name="lab_line_9" input="lab.lab_line[9]" output="gclk_to_ll_mux_layer.lab_line[9]"/>
+                <direct name="lab_line_10" input="lab.lab_line[10]" output="gclk_to_ll_mux_layer.lab_line[10]"/>
+                <direct name="lab_line_11" input="lab.lab_line[11]" output="gclk_to_ll_mux_layer.lab_line[11]"/>
+                <mux name="lab_line_12" input="lab.lab_line[12] lab.gclk[0] lab.gclk[1] lab.gclk[2]" output="gclk_to_ll_mux_layer.lab_line[12]"/>
+                <direct name="lab_line_13" input="lab.lab_line[13]" output="gclk_to_ll_mux_layer.lab_line[13]"/>
+                <direct name="lab_line_14" input="lab.lab_line[14]" output="gclk_to_ll_mux_layer.lab_line[14]"/>
+                <direct name="lab_line_15" input="lab.lab_line[15]" output="gclk_to_ll_mux_layer.lab_line[15]"/>
+                <direct name="lab_line_16" input="lab.lab_line[16]" output="gclk_to_ll_mux_layer.lab_line[16]"/>
+                <direct name="lab_line_17" input="lab.lab_line[17]" output="gclk_to_ll_mux_layer.lab_line[17]"/>
+                <direct name="lab_line_18" input="lab.lab_line[18]" output="gclk_to_ll_mux_layer.lab_line[18]"/>
+                <direct name="lab_line_19" input="lab.lab_line[19]" output="gclk_to_ll_mux_layer.lab_line[19]"/>
+                <direct name="lab_line_20" input="lab.lab_line[20]" output="gclk_to_ll_mux_layer.lab_line[20]"/>
+                <direct name="lab_line_21" input="lab.lab_line[21]" output="gclk_to_ll_mux_layer.lab_line[21]"/>
+                <direct name="lab_line_22" input="lab.lab_line[22]" output="gclk_to_ll_mux_layer.lab_line[22]"/>
+                <direct name="lab_line_23" input="lab.lab_line[23]" output="gclk_to_ll_mux_layer.lab_line[23]"/>
+                <direct name="lab_line_24" input="lab.lab_line[24]" output="gclk_to_ll_mux_layer.lab_line[24]"/>
+                <mux name="lab_line_25" input="lab.lab_line[25] lab.gclk[0] lab.gclk[1] lab.gclk[3]" output="gclk_to_ll_mux_layer.lab_line[25]"/>
+
+                <direct name="lab_output_0" input="gclk_to_ll_mux_layer.lab_outputs" output="lab.lab_outputs"/>
+
+                <direct name="cout" input="gclk_to_ll_mux_layer.cout" output="lab.cout"/>
+                <direct name="cin" input="lab.cin" output="gclk_to_ll_mux_layer.cin"/>
+                <direct name="gclk" input="lab.gclk" output="gclk_to_ll_mux_layer.gclk"/>
             </interconnect>
         </pb_type>
 
