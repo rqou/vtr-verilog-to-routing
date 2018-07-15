@@ -245,7 +245,8 @@
                 <direct name="lab_line_9" input="lab.lab_line[9]" output="gclk_to_ll_mux_layer.lab_line[9]"/>
                 <direct name="lab_line_10" input="lab.lab_line[10]" output="gclk_to_ll_mux_layer.lab_line[10]"/>
                 <direct name="lab_line_11" input="lab.lab_line[11]" output="gclk_to_ll_mux_layer.lab_line[11]"/>
-                <mux name="lab_line_12" input="lab.lab_line[12] lab.gclk[0] lab.gclk[1] lab.gclk[2]" output="gclk_to_ll_mux_layer.lab_line[12]"/>
+                <direct name="lab_line_12" input="lab.lab_line[12]" output="gclk_to_ll_mux_layer.lab_line[12]"/>
+                <!--mux name="lab_line_12" input="lab.lab_line[12] lab.gclk[0] lab.gclk[1] lab.gclk[2]" output="gclk_to_ll_mux_layer.lab_line[12]"/-->
                 <direct name="lab_line_13" input="lab.lab_line[13]" output="gclk_to_ll_mux_layer.lab_line[13]"/>
                 <direct name="lab_line_14" input="lab.lab_line[14]" output="gclk_to_ll_mux_layer.lab_line[14]"/>
                 <direct name="lab_line_15" input="lab.lab_line[15]" output="gclk_to_ll_mux_layer.lab_line[15]"/>
@@ -258,7 +259,8 @@
                 <direct name="lab_line_22" input="lab.lab_line[22]" output="gclk_to_ll_mux_layer.lab_line[22]"/>
                 <direct name="lab_line_23" input="lab.lab_line[23]" output="gclk_to_ll_mux_layer.lab_line[23]"/>
                 <direct name="lab_line_24" input="lab.lab_line[24]" output="gclk_to_ll_mux_layer.lab_line[24]"/>
-                <mux name="lab_line_25" input="lab.lab_line[25] lab.gclk[0] lab.gclk[1] lab.gclk[3]" output="gclk_to_ll_mux_layer.lab_line[25]"/>
+                <direct name="lab_line_25" input="lab.lab_line[25]" output="gclk_to_ll_mux_layer.lab_line[25]"/>
+                <!--mux name="lab_line_25" input="lab.lab_line[25] lab.gclk[0] lab.gclk[1] lab.gclk[3]" output="gclk_to_ll_mux_layer.lab_line[25]"/-->
 
                 <direct name="lab_output" input="gclk_to_ll_mux_layer.lab_outputs" output="lab.lab_outputs"/>
 
