@@ -129,6 +129,10 @@ with open(routefn, 'r') as f:
                     last_node_thing = node_id_to_thing_map[int(last_node_idx)]
                     this_node_thing = node_id_to_thing_map[int(this_node_idx)]
 
+                    if last_node_thing[0] == "GCLK" or this_node_thing[0] == "GCLK":
+                        # Don't do anything here
+                        continue
+
                     # print("{} -> {}".format(last_node_thing, this_node_thing))
 
                     encoded_src = encode_thing(last_node_thing)
@@ -184,6 +188,8 @@ def shufflelut(origbits, rotdata):
 netroot = ET.parse(netfn).getroot()
 # print(netroot)
 
+activated_gclks_cols = set()
+
 for node in netroot:
     if node.tag == "block":
         if node.attrib['instance'].startswith('lab'):
@@ -208,23 +214,28 @@ for node in netroot:
             # print(inner_layer.attrib)
             assert inner_layer.attrib['instance'].startswith('inner_layer')
 
-            for node in inner_layer:
-                if node.tag == "outputs":
-                    for node in node:
-                        if node.attrib['name'] == 'lab_outputs':
-                            labouts = node.text.split()
-                            # print(labouts)
-                            for lebufferi in range(20):
-                                if labouts[lebufferi] != open:
-                                    # print(labouts[lebufferi])
-                                    if "combout" in labouts[lebufferi]:
-                                        OUTOUTOUT += "COMBOUT -> LE_BUFFER:X{}Y{}S0I{}\n".format(labloc[0], labloc[1], lebufferi)
-                                    elif "regout" in labouts[lebufferi]:
-                                        OUTOUTOUT += "REGOUT -> LE_BUFFER:X{}Y{}S0I{}\n".format(labloc[0], labloc[1], lebufferi)
-                                    elif labouts[lebufferi] == 'open':
-                                        pass
-                                    else:
-                                        assert False
+            for node in labnode.find('inputs'):
+                if node.attrib['name'] == "gclk":
+                    gclks = node.text.split()
+                    for I in range(4):
+                        if gclks[I] != 'open':
+                            activated_gclks_cols.add((labloc[0], I))
+
+            for node in inner_layer.find('outputs'):
+                if node.attrib['name'] == 'lab_outputs':
+                    labouts = node.text.split()
+                    # print(labouts)
+                    for lebufferi in range(20):
+                        if labouts[lebufferi] != open:
+                            # print(labouts[lebufferi])
+                            if "combout" in labouts[lebufferi]:
+                                OUTOUTOUT += "COMBOUT -> LE_BUFFER:X{}Y{}S0I{}\n".format(labloc[0], labloc[1], lebufferi)
+                            elif "regout" in labouts[lebufferi]:
+                                OUTOUTOUT += "REGOUT -> LE_BUFFER:X{}Y{}S0I{}\n".format(labloc[0], labloc[1], lebufferi)
+                            elif labouts[lebufferi] == 'open':
+                                pass
+                            else:
+                                assert False
             for node in inner_layer:
                 if node.tag == "block" and node.attrib['instance'].startswith('lut'):
                     # print(node.attrib['instance'])
@@ -285,4 +296,11 @@ for node in netroot:
             assert False
         # print(node.attrib)
 
+activated_gclks = set()
+for col, clk in activated_gclks_cols:
+    OUTOUTOUT += "GCLK_COL:X{}I{} = on\n".format(col, clk)
+    activated_gclks.add(clk)
+for clk in activated_gclks:
+    # TODO
+    OUTOUTOUT += "GCLK_SOURCE:I{} = pin\n".format(clk)
 print(OUTOUTOUT)
