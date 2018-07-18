@@ -110,6 +110,31 @@
                                 </interconnect>
                             </pb_type>
 
+                            <pb_type name="reg_wrapper" num_pb="10">
+                                <input name="clk" num_pins="1"/>
+                                <input name="clkena" num_pins="1"/>
+                                <input name="aclr" num_pins="1"/>
+                                <input name="aload" num_pins="1"/>
+                                <input name="sload" num_pins="1"/>
+                                <input name="sclr" num_pins="1"/>
+
+                                <input name="loaddata" num_pins="1"/>
+                                <input name="regin" num_pins="1"/>
+                                <output name="regout" num_pins="1"/>
+
+                                <pb_type name="reg_blif" blif_model=".latch" class="flipflop" num_pb="1">
+                                    <input name="D" num_pins="1" port_class="D"/>
+                                    <output name="Q" num_pins="1" port_class="Q"/>
+                                    <clock name="clk" num_pins="1" port_class="clock"/>
+                                </pb_type>
+
+                                <interconnect>
+                                    <direct name="regin" input="reg_wrapper.regin" output="reg_blif.D"/>
+                                    <direct name="clk" input="reg_wrapper.clk" output="reg_blif.clk"/>
+                                    <direct name="regout" input="reg_blif.Q" output="reg_wrapper.regout"/>
+                                </interconnect>
+                            </pb_type>
+
                             <interconnect>
                                 <!-- Local line to LUT input -->
                                 <mux name="lut0_dataa" output="lut[0].dataa" input="inner_layer.lab_line[0] inner_layer.lab_line[1] inner_layer.lab_line[3] inner_layer.lab_line[6] inner_layer.lab_line[8]  inner_layer.lab_line[9]  inner_layer.lab_line[11] inner_layer.lab_line[14] inner_layer.lab_line[15] inner_layer.lab_line[18] inner_layer.lab_line[19] inner_layer.lab_line[22] inner_layer.lab_line[25]"/>
@@ -154,26 +179,49 @@
                                 <mux name="lut9_datad" output="lut[9].datad" input="inner_layer.lab_line[1] inner_layer.lab_line[4] inner_layer.lab_line[5] inner_layer.lab_line[6] inner_layer.lab_line[10] inner_layer.lab_line[12] inner_layer.lab_line[13] inner_layer.lab_line[15] inner_layer.lab_line[16] inner_layer.lab_line[19] inner_layer.lab_line[20] inner_layer.lab_line[23] inner_layer.lab_line[24]"/>
 
                                 <!-- LE outputs -->
-                                <direct name="le0_buffer0" input="lut[0].combout" output="inner_layer.lab_outputs[0]"/>
-                                <direct name="le0_buffer1" input="lut[0].combout" output="inner_layer.lab_outputs[1]"/>
-                                <direct name="le1_buffer0" input="lut[1].combout" output="inner_layer.lab_outputs[2]"/>
-                                <direct name="le1_buffer1" input="lut[1].combout" output="inner_layer.lab_outputs[3]"/>
-                                <direct name="le2_buffer0" input="lut[2].combout" output="inner_layer.lab_outputs[4]"/>
-                                <direct name="le2_buffer1" input="lut[2].combout" output="inner_layer.lab_outputs[5]"/>
-                                <direct name="le3_buffer0" input="lut[3].combout" output="inner_layer.lab_outputs[6]"/>
-                                <direct name="le3_buffer1" input="lut[3].combout" output="inner_layer.lab_outputs[7]"/>
-                                <direct name="le4_buffer0" input="lut[4].combout" output="inner_layer.lab_outputs[8]"/>
-                                <direct name="le4_buffer1" input="lut[4].combout" output="inner_layer.lab_outputs[9]"/>
-                                <direct name="le5_buffer0" input="lut[5].combout" output="inner_layer.lab_outputs[10]"/>
-                                <direct name="le5_buffer1" input="lut[5].combout" output="inner_layer.lab_outputs[11]"/>
-                                <direct name="le6_buffer0" input="lut[6].combout" output="inner_layer.lab_outputs[12]"/>
-                                <direct name="le6_buffer1" input="lut[6].combout" output="inner_layer.lab_outputs[13]"/>
-                                <direct name="le7_buffer0" input="lut[7].combout" output="inner_layer.lab_outputs[14]"/>
-                                <direct name="le7_buffer1" input="lut[7].combout" output="inner_layer.lab_outputs[15]"/>
-                                <direct name="le8_buffer0" input="lut[8].combout" output="inner_layer.lab_outputs[16]"/>
-                                <direct name="le8_buffer1" input="lut[8].combout" output="inner_layer.lab_outputs[17]"/>
-                                <direct name="le9_buffer0" input="lut[9].combout" output="inner_layer.lab_outputs[18]"/>
-                                <direct name="le9_buffer1" input="lut[9].combout" output="inner_layer.lab_outputs[19]"/>
+                                <mux name="le0_buffer0" input="lut[0].combout reg_wrapper[0].regout" output="inner_layer.lab_outputs[0]"/>
+                                <mux name="le0_buffer1" input="lut[0].combout reg_wrapper[0].regout" output="inner_layer.lab_outputs[1]"/>
+                                <mux name="le1_buffer0" input="lut[1].combout reg_wrapper[1].regout" output="inner_layer.lab_outputs[2]"/>
+                                <mux name="le1_buffer1" input="lut[1].combout reg_wrapper[1].regout" output="inner_layer.lab_outputs[3]"/>
+                                <mux name="le2_buffer0" input="lut[2].combout reg_wrapper[2].regout" output="inner_layer.lab_outputs[4]"/>
+                                <mux name="le2_buffer1" input="lut[2].combout reg_wrapper[2].regout" output="inner_layer.lab_outputs[5]"/>
+                                <mux name="le3_buffer0" input="lut[3].combout reg_wrapper[3].regout" output="inner_layer.lab_outputs[6]"/>
+                                <mux name="le3_buffer1" input="lut[3].combout reg_wrapper[3].regout" output="inner_layer.lab_outputs[7]"/>
+                                <mux name="le4_buffer0" input="lut[4].combout reg_wrapper[4].regout" output="inner_layer.lab_outputs[8]"/>
+                                <mux name="le4_buffer1" input="lut[4].combout reg_wrapper[4].regout" output="inner_layer.lab_outputs[9]"/>
+                                <mux name="le5_buffer0" input="lut[5].combout reg_wrapper[5].regout" output="inner_layer.lab_outputs[10]"/>
+                                <mux name="le5_buffer1" input="lut[5].combout reg_wrapper[5].regout" output="inner_layer.lab_outputs[11]"/>
+                                <mux name="le6_buffer0" input="lut[6].combout reg_wrapper[6].regout" output="inner_layer.lab_outputs[12]"/>
+                                <mux name="le6_buffer1" input="lut[6].combout reg_wrapper[6].regout" output="inner_layer.lab_outputs[13]"/>
+                                <mux name="le7_buffer0" input="lut[7].combout reg_wrapper[7].regout" output="inner_layer.lab_outputs[14]"/>
+                                <mux name="le7_buffer1" input="lut[7].combout reg_wrapper[7].regout" output="inner_layer.lab_outputs[15]"/>
+                                <mux name="le8_buffer0" input="lut[8].combout reg_wrapper[8].regout" output="inner_layer.lab_outputs[16]"/>
+                                <mux name="le8_buffer1" input="lut[8].combout reg_wrapper[8].regout" output="inner_layer.lab_outputs[17]"/>
+                                <mux name="le9_buffer0" input="lut[9].combout reg_wrapper[9].regout" output="inner_layer.lab_outputs[18]"/>
+                                <mux name="le9_buffer1" input="lut[9].combout reg_wrapper[9].regout" output="inner_layer.lab_outputs[19]"/>
+
+                                <!-- HACK for now -->
+                                <direct name="clk0_to_0" input="inner_layer.clk0" output="reg_wrapper[0].clk"/>
+                                <direct name="clk0_to_1" input="inner_layer.clk0" output="reg_wrapper[1].clk"/>
+                                <direct name="clk0_to_2" input="inner_layer.clk0" output="reg_wrapper[2].clk"/>
+                                <direct name="clk0_to_3" input="inner_layer.clk0" output="reg_wrapper[3].clk"/>
+                                <direct name="clk0_to_4" input="inner_layer.clk0" output="reg_wrapper[4].clk"/>
+                                <direct name="clk0_to_5" input="inner_layer.clk0" output="reg_wrapper[5].clk"/>
+                                <direct name="clk0_to_6" input="inner_layer.clk0" output="reg_wrapper[6].clk"/>
+                                <direct name="clk0_to_7" input="inner_layer.clk0" output="reg_wrapper[7].clk"/>
+                                <direct name="clk0_to_8" input="inner_layer.clk0" output="reg_wrapper[8].clk"/>
+                                <direct name="clk0_to_9" input="inner_layer.clk0" output="reg_wrapper[9].clk"/>
+
+                                <direct name="regin0" input="lut[0].combout" output="reg_wrapper[0].regin"/>
+                                <direct name="regin1" input="lut[1].combout" output="reg_wrapper[1].regin"/>
+                                <direct name="regin2" input="lut[2].combout" output="reg_wrapper[2].regin"/>
+                                <direct name="regin3" input="lut[3].combout" output="reg_wrapper[3].regin"/>
+                                <direct name="regin4" input="lut[4].combout" output="reg_wrapper[4].regin"/>
+                                <direct name="regin5" input="lut[5].combout" output="reg_wrapper[5].regin"/>
+                                <direct name="regin6" input="lut[6].combout" output="reg_wrapper[6].regin"/>
+                                <direct name="regin7" input="lut[7].combout" output="reg_wrapper[7].regin"/>
+                                <direct name="regin8" input="lut[8].combout" output="reg_wrapper[8].regin"/>
+                                <direct name="regin9" input="lut[9].combout" output="reg_wrapper[9].regin"/>
                             </interconnect>
                         </pb_type>
 

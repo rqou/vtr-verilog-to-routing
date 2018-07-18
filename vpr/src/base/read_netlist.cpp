@@ -973,7 +973,7 @@ static void load_external_nets_and_cb(const std::vector<std::string>& circuit_cl
 		}
 		for (j = 0; j < num_tokens; j++) {
 			if (0 == clb_nlist.net_name(net_id).compare(circuit_clocks[j].c_str())) {
-				VTR_ASSERT(clb_nlist.net_is_global(net_id));
+				// VTR_ASSERT(clb_nlist.net_is_global(net_id));
 			}
 		}
 	}

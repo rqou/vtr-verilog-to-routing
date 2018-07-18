@@ -17,5 +17,5 @@ with open('rrgraph-out.xml', 'w') as f:
             src_node = int(matches[1])
             sink_node = int(matches[2])
             # print(src_node, sink_node)
-            if src_node <= 3023 and sink_node <= 3023:
+            if src_node <= 3095 and sink_node <= 3095:
                 f.write(l)

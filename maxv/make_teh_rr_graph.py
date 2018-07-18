@@ -31,7 +31,7 @@ for X in range(1, 9):
                 thing_to_node_id_map[('IO_DATAOUT', X, Y, I)] = len(node_id_to_thing_map) - 1
         else:
             if Y == 0 or Y == 5:
-                for I in range(4):
+                for I in range(5):
                     # print(X, Y, I)
                     node_id_to_thing_map.append(('IO_DATAIN SINK', X, Y, I))
                     thing_to_node_id_map[('IO_DATAIN SINK', X, Y, I)] = len(node_id_to_thing_map) - 1
@@ -39,7 +39,7 @@ for X in range(1, 9):
                     thing_to_node_id_map[('OE SINK', X, Y, I)] = len(node_id_to_thing_map) - 1
                     node_id_to_thing_map.append(('IO_DATAOUT SOURCE', X, Y, I))
                     thing_to_node_id_map[('IO_DATAOUT SOURCE', X, Y, I)] = len(node_id_to_thing_map) - 1
-                for I in range(4):
+                for I in range(5):
                     # print(X, Y, I)
                     node_id_to_thing_map.append(('IO_DATAIN', X, Y, I))
                     thing_to_node_id_map[('IO_DATAIN', X, Y, I)] = len(node_id_to_thing_map) - 1
@@ -51,8 +51,8 @@ for X in range(1, 9):
                 for I in range(26):
                     node_id_to_thing_map.append(('LOCAL_INTERCONNECT SINK', X, Y, I))
                     thing_to_node_id_map[('LOCAL_INTERCONNECT SINK', X, Y, I)] = len(node_id_to_thing_map) - 1
-                node_id_to_thing_map.append(('LAB CIN SINK', X, Y, I))
-                thing_to_node_id_map[('LAB CIN SINK', X, Y, I)] = len(node_id_to_thing_map) - 1
+                node_id_to_thing_map.append(('LAB CIN SINK', X, Y))
+                thing_to_node_id_map[('LAB CIN SINK', X, Y)] = len(node_id_to_thing_map) - 1
                 for I in range(4):
                     node_id_to_thing_map.append(('GCLK SINK', X, Y, I))
                     thing_to_node_id_map[('GCLK SINK', X, Y, I)] = len(node_id_to_thing_map) - 1
@@ -65,8 +65,8 @@ for X in range(1, 9):
                 for I in range(26):
                     node_id_to_thing_map.append(('LOCAL_INTERCONNECT', X, Y, I))
                     thing_to_node_id_map[('LOCAL_INTERCONNECT', X, Y, I)] = len(node_id_to_thing_map) - 1
-                node_id_to_thing_map.append(('LAB CIN', X, Y, I))
-                thing_to_node_id_map[('LAB CIN', X, Y, I)] = len(node_id_to_thing_map) - 1
+                node_id_to_thing_map.append(('LAB CIN', X, Y))
+                thing_to_node_id_map[('LAB CIN', X, Y)] = len(node_id_to_thing_map) - 1
                 for I in range(4):
                     node_id_to_thing_map.append(('GCLK', X, Y, I))
                     thing_to_node_id_map[('GCLK', X, Y, I)] = len(node_id_to_thing_map) - 1
@@ -76,8 +76,8 @@ for X in range(1, 9):
                 node_id_to_thing_map.append(('LAB COUT', X, Y, I))
                 thing_to_node_id_map[('LAB COUT', X, Y, I)] = len(node_id_to_thing_map) - 1
 
-assert len(node_id_to_thing_map) == 3024
-assert len(thing_to_node_id_map) == 3024
+assert len(node_id_to_thing_map) == 3096
+assert len(thing_to_node_id_map) == 3096
 
 # print(node_id_to_thing_map)
 # print(thing_to_node_id_map)
@@ -540,27 +540,56 @@ for dstnode, srcnodes in interconnectinterconnect.items():
         else:
             print("SKIPPED {} -> {}".format(srcnode, dstnode))
 
+### XXX why doesn't this work normally?
 # Clocks to tile
 for X in range(2, 8):
     for Y in range(1, 5):
-        for I in range(4):
-            EDGESEDGESEDGES += '<edge src_node="{}" sink_node="{}" switch_id="0"/>\n'.format(
-                thing_to_node_id_map[('GCLK', I)],
-                thing_to_node_id_map[('GCLK', X, Y, I)])
+        EDGESEDGESEDGES += '<edge src_node="{}" sink_node="{}" switch_id="0"/>\n'.format(
+            thing_to_node_id_map[('IO_DATAOUT', 1, 3, 3)],
+            thing_to_node_id_map[('GCLK', X, Y, 0)])
+        EDGESEDGESEDGES += '<edge src_node="{}" sink_node="{}" switch_id="0"/>\n'.format(
+            thing_to_node_id_map[('IO_DATAOUT', 1, 2, 0)],
+            thing_to_node_id_map[('GCLK', X, Y, 1)])
+        EDGESEDGESEDGES += '<edge src_node="{}" sink_node="{}" switch_id="0"/>\n'.format(
+            thing_to_node_id_map[('IO_DATAOUT', 8, 2, 0)],
+            thing_to_node_id_map[('GCLK', X, Y, 2)])
+        EDGESEDGESEDGES += '<edge src_node="{}" sink_node="{}" switch_id="0"/>\n'.format(
+            thing_to_node_id_map[('IO_DATAOUT', 8, 3, 4)],
+            thing_to_node_id_map[('GCLK', X, Y, 3)])
 
-# IO to clock
-EDGESEDGESEDGES += '<edge src_node="{}" sink_node="{}" switch_id="0"/>\n'.format(
-    thing_to_node_id_map[('IO_DATAOUT', 1, 3, 3)],
-    thing_to_node_id_map[('GCLK', 0)])
-EDGESEDGESEDGES += '<edge src_node="{}" sink_node="{}" switch_id="0"/>\n'.format(
-    thing_to_node_id_map[('IO_DATAOUT', 1, 2, 0)],
-    thing_to_node_id_map[('GCLK', 1)])
-EDGESEDGESEDGES += '<edge src_node="{}" sink_node="{}" switch_id="0"/>\n'.format(
-    thing_to_node_id_map[('IO_DATAOUT', 8, 2, 0)],
-    thing_to_node_id_map[('GCLK', 2)])
-EDGESEDGESEDGES += '<edge src_node="{}" sink_node="{}" switch_id="0"/>\n'.format(
-    thing_to_node_id_map[('IO_DATAOUT', 8, 3, 4)],
-    thing_to_node_id_map[('GCLK', 3)])
+# # Clocks to tile
+# for X in range(2, 8):
+#     for Y in range(1, 5):
+#         for I in range(4):
+#             EDGESEDGESEDGES += '<edge src_node="{}" sink_node="{}" switch_id="0"/>\n'.format(
+#                 thing_to_node_id_map[('GCLK', I)],
+#                 thing_to_node_id_map[('GCLK', X, Y, I)])
+
+# # IO to clock
+# EDGESEDGESEDGES += '<edge src_node="{}" sink_node="{}" switch_id="0"/>\n'.format(
+#     thing_to_node_id_map[('IO_DATAOUT', 1, 3, 3)],
+#     thing_to_node_id_map[('GCLK', 0)])
+# EDGESEDGESEDGES += '<edge src_node="{}" sink_node="{}" switch_id="0"/>\n'.format(
+#     thing_to_node_id_map[('IO_DATAOUT', 1, 2, 0)],
+#     thing_to_node_id_map[('GCLK', 1)])
+# EDGESEDGESEDGES += '<edge src_node="{}" sink_node="{}" switch_id="0"/>\n'.format(
+#     thing_to_node_id_map[('IO_DATAOUT', 8, 2, 0)],
+#     thing_to_node_id_map[('GCLK', 2)])
+# EDGESEDGESEDGES += '<edge src_node="{}" sink_node="{}" switch_id="0"/>\n'.format(
+#     thing_to_node_id_map[('IO_DATAOUT', 8, 3, 4)],
+#     thing_to_node_id_map[('GCLK', 3)])
+
+# EDGESEDGESEDGES += '<edge src_node="{}" sink_node="{}" switch_id="0"/>\n'.format(
+#     thing_to_node_id_map[('IO_DATAOUT', 8, 3, 4)],
+#     thing_to_node_id_map[('GCLK', 7, 4, 3)])
+
+# for test in range(2894, 2925):
+#     if test == thing_to_node_id_map[('GCLK', 7, 4, 3)]:
+#         continue
+
+#     EDGESEDGESEDGES += '<edge src_node="{}" sink_node="{}" switch_id="0"/>\n'.format(
+#         thing_to_node_id_map[('GCLK', 3)],
+#         test)
 
 # IO local interconnect to output
 for X in [1, 8]:
@@ -613,4 +642,4 @@ with open('rrgraph-newnew.xml', 'w') as f:
 
 
 with open('rrgraph-construction-node-to-thing-map.json', 'w') as f:
-    json.dump(node_id_to_thing_map, f)
+    json.dump(node_id_to_thing_map, f, indent=4, sort_keys=True)
