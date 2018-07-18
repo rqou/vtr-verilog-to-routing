@@ -214,6 +214,25 @@ for node in netroot:
             # print(inner_layer.attrib)
             assert inner_layer.attrib['instance'].startswith('inner_layer')
 
+
+            for inpnode in inner_layer.find('inputs'):
+                # print(inpnode.attrib)
+                if inpnode.attrib['name'] == 'clk0' or inpnode.attrib['name'] == 'clk1':
+                    inputtext = inpnode.text
+
+                    if inputtext != 'open':
+                        which_clkline = inpnode.attrib['name'][3]
+
+                        # print(inpnode.text)
+                        # print(which_clkline)
+
+                        if inputtext.startswith('labwide_mux_layer.gclk'):
+                            gclkidx = inputtext[23]
+                            # print(which_clkline, gclkidx)
+                            OUTOUTOUT += "GCLK{} -> TILECLK:X{}Y{}I{}\n".format(gclkidx, labloc[0], labloc[1], which_clkline)
+                        else:
+                            ...
+
             for node in labnode.find('inputs'):
                 if node.attrib['name'] == "gclk":
                     gclks = node.text.split()
@@ -278,6 +297,23 @@ for node in netroot:
                             rotlutbits = shufflelut(lutbits, rotdata)
 
                             OUTOUTOUT += "LUTBITS:X{}Y{}N{} = {:16b}\n".format(labloc[0], labloc[1], lutidx, rotlutbits)
+            for node in inner_layer:
+                if node.tag == "block" and node.attrib['instance'].startswith('reg_wrapper'):
+                    if node.attrib['name'] == 'open':
+                        continue
+
+                    regidx = node.attrib['instance'][12]
+                    regnode = node
+
+                    # print(node.attrib)
+                    for inpnode in regnode.find('inputs'):
+                        # print(inpnode.attrib)
+                        if inpnode.attrib['name'] == 'clk':
+                            clkinp = inpnode.text
+                            # print(clkinp)
+                            assert clkinp.startswith("inner_layer.clk")
+                            clkinpidx = clkinp[15]
+                            OUTOUTOUT += "TILECLK{} -> REG:X{}Y{}I{}\n".format(clkinpidx, labloc[0], labloc[1], regidx)
 
         elif node.attrib['instance'].startswith('io_tile'):
             # print('IO {}'.format(node.attrib['name']))
