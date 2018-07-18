@@ -191,7 +191,24 @@ for node in netroot:
             labloc = placeplaceplace[node.attrib['name']]
             labnode = node
             # print(labloc)
-            for node in labnode:
+
+            gclk_to_ll_mux_layer = labnode.find('block')
+            # print(gclk_to_ll_mux_layer.attrib)
+            assert gclk_to_ll_mux_layer.attrib['instance'].startswith('gclk_to_ll_mux_layer')
+
+            controlmux_layer = gclk_to_ll_mux_layer.find('block')
+            # print(controlmux_layer.attrib)
+            assert controlmux_layer.attrib['instance'].startswith('controlmux_layer')
+
+            labwide_mux_layer = controlmux_layer.find('block')
+            # print(labwide_mux_layer.attrib)
+            assert labwide_mux_layer.attrib['instance'].startswith('labwide_mux_layer')
+
+            inner_layer = labwide_mux_layer.find('block')
+            # print(inner_layer.attrib)
+            assert inner_layer.attrib['instance'].startswith('inner_layer')
+
+            for node in inner_layer:
                 if node.tag == "outputs":
                     for node in node:
                         if node.attrib['name'] == 'lab_outputs':
@@ -202,9 +219,13 @@ for node in netroot:
                                     # print(labouts[lebufferi])
                                     if "combout" in labouts[lebufferi]:
                                         OUTOUTOUT += "COMBOUT -> LE_BUFFER:X{}Y{}S0I{}\n".format(labloc[0], labloc[1], lebufferi)
+                                    elif "regout" in labouts[lebufferi]:
+                                        OUTOUTOUT += "REGOUT -> LE_BUFFER:X{}Y{}S0I{}\n".format(labloc[0], labloc[1], lebufferi)
+                                    elif labouts[lebufferi] == 'open':
+                                        pass
                                     else:
-                                        ...
-            for node in labnode:
+                                        assert False
+            for node in inner_layer:
                 if node.tag == "block" and node.attrib['instance'].startswith('lut'):
                     # print(node.attrib['instance'])
                     # print(node.attrib['instance'].startswith('lut'))
@@ -224,8 +245,8 @@ for node in netroot:
                                     if inpval != "open":
                                         # print(inpname, inpval)
                                         # TODO: datac/datad special cases
-                                        assert inpval.startswith('lab.lab_line')
-                                        inpval = inpval[13:].split(']')[0]
+                                        assert inpval.startswith('inner_layer.lab_line')
+                                        inpval = inpval[21:].split(']')[0]
                                         # print(inpval)
                                         OUTOUTOUT += "LOCAL_INTERCONNECT:X{}Y{}S0I{} -> LUT{}:{}\n".format(
                                             labloc[0], labloc[1], inpval, lutidx, inpname.upper())
@@ -247,7 +268,7 @@ for node in netroot:
 
                             OUTOUTOUT += "LUTBITS:X{}Y{}N{} = {:16b}\n".format(labloc[0], labloc[1], lutidx, rotlutbits)
 
-        elif node.attrib['instance'].startswith('row_io_tile') or node.attrib['instance'].startswith('col_io_tile'):
+        elif node.attrib['instance'].startswith('io_tile'):
             # print('IO {}'.format(node.attrib['name']))
             loc = placeplaceplace[node.attrib['name']]
             # print(loc)
