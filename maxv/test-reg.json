@@ -1,0 +1,770 @@
+{
+  "creator": "Yosys 0.7+612 (git sha1 8b92ddb9, clang 6.0.1-2 -fPIC -Os)",
+  "modules": {
+    "max25_jtag_libre": {
+      "attributes": {
+        "blackbox": 1,
+        "src": "/home/rqou/code/yosys/share/intel/max25_libre/cells_sim.v:50"
+      },
+      "ports": {
+        "tdouser": {
+          "direction": "input",
+          "bits": [ 2 ]
+        },
+        "tmsutap": {
+          "direction": "output",
+          "bits": [ 3 ]
+        },
+        "tckutap": {
+          "direction": "output",
+          "bits": [ 4 ]
+        },
+        "tdiutap": {
+          "direction": "output",
+          "bits": [ 5 ]
+        },
+        "shiftuser": {
+          "direction": "output",
+          "bits": [ 6 ]
+        },
+        "clkdruser": {
+          "direction": "output",
+          "bits": [ 7 ]
+        },
+        "updateuser": {
+          "direction": "output",
+          "bits": [ 8 ]
+        },
+        "runidleuser": {
+          "direction": "output",
+          "bits": [ 9 ]
+        },
+        "usr1user": {
+          "direction": "output",
+          "bits": [ 10 ]
+        }
+      },
+      "cells": {
+      },
+      "netnames": {
+        "clkdruser": {
+          "hide_name": 0,
+          "bits": [ 7 ],
+          "attributes": {
+            "src": "/home/rqou/code/yosys/share/intel/max25_libre/cells_sim.v:57"
+          }
+        },
+        "runidleuser": {
+          "hide_name": 0,
+          "bits": [ 9 ],
+          "attributes": {
+            "src": "/home/rqou/code/yosys/share/intel/max25_libre/cells_sim.v:59"
+          }
+        },
+        "shiftuser": {
+          "hide_name": 0,
+          "bits": [ 6 ],
+          "attributes": {
+            "src": "/home/rqou/code/yosys/share/intel/max25_libre/cells_sim.v:56"
+          }
+        },
+        "tckutap": {
+          "hide_name": 0,
+          "bits": [ 4 ],
+          "attributes": {
+            "src": "/home/rqou/code/yosys/share/intel/max25_libre/cells_sim.v:54"
+          }
+        },
+        "tdiutap": {
+          "hide_name": 0,
+          "bits": [ 5 ],
+          "attributes": {
+            "src": "/home/rqou/code/yosys/share/intel/max25_libre/cells_sim.v:55"
+          }
+        },
+        "tdouser": {
+          "hide_name": 0,
+          "bits": [ 2 ],
+          "attributes": {
+            "src": "/home/rqou/code/yosys/share/intel/max25_libre/cells_sim.v:51"
+          }
+        },
+        "tmsutap": {
+          "hide_name": 0,
+          "bits": [ 3 ],
+          "attributes": {
+            "src": "/home/rqou/code/yosys/share/intel/max25_libre/cells_sim.v:53"
+          }
+        },
+        "updateuser": {
+          "hide_name": 0,
+          "bits": [ 8 ],
+          "attributes": {
+            "src": "/home/rqou/code/yosys/share/intel/max25_libre/cells_sim.v:58"
+          }
+        },
+        "usr1user": {
+          "hide_name": 0,
+          "bits": [ 10 ],
+          "attributes": {
+            "src": "/home/rqou/code/yosys/share/intel/max25_libre/cells_sim.v:60"
+          }
+        }
+      }
+    },
+    "max25_lcell_comb_libre": {
+      "attributes": {
+        "blackbox": 1,
+        "src": "/home/rqou/code/yosys/share/intel/max25_libre/cells_sim.v:1"
+      },
+      "ports": {
+        "dataa": {
+          "direction": "input",
+          "bits": [ 2 ]
+        },
+        "datab": {
+          "direction": "input",
+          "bits": [ 3 ]
+        },
+        "datac": {
+          "direction": "input",
+          "bits": [ 4 ]
+        },
+        "datad": {
+          "direction": "input",
+          "bits": [ 5 ]
+        },
+        "combout": {
+          "direction": "output",
+          "bits": [ 6 ]
+        },
+        "cin": {
+          "direction": "input",
+          "bits": [ 7 ]
+        },
+        "cout": {
+          "direction": "output",
+          "bits": [ 8 ]
+        },
+        "inverta": {
+          "direction": "input",
+          "bits": [ 9 ]
+        }
+      },
+      "cells": {
+      },
+      "netnames": {
+        "cin": {
+          "hide_name": 0,
+          "bits": [ 7 ],
+          "attributes": {
+            "src": "/home/rqou/code/yosys/share/intel/max25_libre/cells_sim.v:8"
+          }
+        },
+        "combout": {
+          "hide_name": 0,
+          "bits": [ 6 ],
+          "attributes": {
+            "src": "/home/rqou/code/yosys/share/intel/max25_libre/cells_sim.v:6"
+          }
+        },
+        "cout": {
+          "hide_name": 0,
+          "bits": [ 8 ],
+          "attributes": {
+            "src": "/home/rqou/code/yosys/share/intel/max25_libre/cells_sim.v:9"
+          }
+        },
+        "dataa": {
+          "hide_name": 0,
+          "bits": [ 2 ],
+          "attributes": {
+            "src": "/home/rqou/code/yosys/share/intel/max25_libre/cells_sim.v:2"
+          }
+        },
+        "datab": {
+          "hide_name": 0,
+          "bits": [ 3 ],
+          "attributes": {
+            "src": "/home/rqou/code/yosys/share/intel/max25_libre/cells_sim.v:3"
+          }
+        },
+        "datac": {
+          "hide_name": 0,
+          "bits": [ 4 ],
+          "attributes": {
+            "src": "/home/rqou/code/yosys/share/intel/max25_libre/cells_sim.v:4"
+          }
+        },
+        "datad": {
+          "hide_name": 0,
+          "bits": [ 5 ],
+          "attributes": {
+            "src": "/home/rqou/code/yosys/share/intel/max25_libre/cells_sim.v:5"
+          }
+        },
+        "inverta": {
+          "hide_name": 0,
+          "bits": [ 9 ],
+          "attributes": {
+            "src": "/home/rqou/code/yosys/share/intel/max25_libre/cells_sim.v:11"
+          }
+        }
+      }
+    },
+    "max25_lcell_reg_libre": {
+      "attributes": {
+        "blackbox": 1,
+        "src": "/home/rqou/code/yosys/share/intel/max25_libre/cells_sim.v:16"
+      },
+      "ports": {
+        "clk": {
+          "direction": "input",
+          "bits": [ 2 ]
+        },
+        "ena": {
+          "direction": "input",
+          "bits": [ 3 ]
+        },
+        "regin": {
+          "direction": "input",
+          "bits": [ 4 ]
+        },
+        "regout": {
+          "direction": "output",
+          "bits": [ 5 ]
+        },
+        "loaddata": {
+          "direction": "input",
+          "bits": [ 6 ]
+        },
+        "aclr": {
+          "direction": "input",
+          "bits": [ 7 ]
+        },
+        "aload": {
+          "direction": "input",
+          "bits": [ 8 ]
+        },
+        "sclr": {
+          "direction": "input",
+          "bits": [ 9 ]
+        },
+        "sload": {
+          "direction": "input",
+          "bits": [ 10 ]
+        }
+      },
+      "cells": {
+      },
+      "netnames": {
+        "aclr": {
+          "hide_name": 0,
+          "bits": [ 7 ],
+          "attributes": {
+            "src": "/home/rqou/code/yosys/share/intel/max25_libre/cells_sim.v:25"
+          }
+        },
+        "aload": {
+          "hide_name": 0,
+          "bits": [ 8 ],
+          "attributes": {
+            "src": "/home/rqou/code/yosys/share/intel/max25_libre/cells_sim.v:26"
+          }
+        },
+        "clk": {
+          "hide_name": 0,
+          "bits": [ 2 ],
+          "attributes": {
+            "src": "/home/rqou/code/yosys/share/intel/max25_libre/cells_sim.v:17"
+          }
+        },
+        "ena": {
+          "hide_name": 0,
+          "bits": [ 3 ],
+          "attributes": {
+            "src": "/home/rqou/code/yosys/share/intel/max25_libre/cells_sim.v:18"
+          }
+        },
+        "loaddata": {
+          "hide_name": 0,
+          "bits": [ 6 ],
+          "attributes": {
+            "src": "/home/rqou/code/yosys/share/intel/max25_libre/cells_sim.v:23"
+          }
+        },
+        "regin": {
+          "hide_name": 0,
+          "bits": [ 4 ],
+          "attributes": {
+            "src": "/home/rqou/code/yosys/share/intel/max25_libre/cells_sim.v:20"
+          }
+        },
+        "regout": {
+          "hide_name": 0,
+          "bits": [ 5 ],
+          "attributes": {
+            "src": "/home/rqou/code/yosys/share/intel/max25_libre/cells_sim.v:21"
+          }
+        },
+        "sclr": {
+          "hide_name": 0,
+          "bits": [ 9 ],
+          "attributes": {
+            "src": "/home/rqou/code/yosys/share/intel/max25_libre/cells_sim.v:28"
+          }
+        },
+        "sload": {
+          "hide_name": 0,
+          "bits": [ 10 ],
+          "attributes": {
+            "src": "/home/rqou/code/yosys/share/intel/max25_libre/cells_sim.v:29"
+          }
+        }
+      }
+    },
+    "max25_ufm_libre": {
+      "attributes": {
+        "blackbox": 1,
+        "src": "/home/rqou/code/yosys/share/intel/max25_libre/cells_sim.v:64"
+      },
+      "ports": {
+        "arclk": {
+          "direction": "input",
+          "bits": [ 2 ]
+        },
+        "arshft": {
+          "direction": "input",
+          "bits": [ 3 ]
+        },
+        "ardin": {
+          "direction": "input",
+          "bits": [ 4 ]
+        },
+        "drclk": {
+          "direction": "input",
+          "bits": [ 5 ]
+        },
+        "drshft": {
+          "direction": "input",
+          "bits": [ 6 ]
+        },
+        "drdin": {
+          "direction": "input",
+          "bits": [ 7 ]
+        },
+        "drdout": {
+          "direction": "output",
+          "bits": [ 8 ]
+        },
+        "program": {
+          "direction": "input",
+          "bits": [ 9 ]
+        },
+        "erase": {
+          "direction": "input",
+          "bits": [ 10 ]
+        },
+        "busy": {
+          "direction": "output",
+          "bits": [ 11 ]
+        },
+        "bgpbusy": {
+          "direction": "output",
+          "bits": [ 12 ]
+        },
+        "oscena": {
+          "direction": "input",
+          "bits": [ 13 ]
+        },
+        "osc": {
+          "direction": "output",
+          "bits": [ 14 ]
+        },
+        "sbdin": {
+          "direction": "input",
+          "bits": [ 15 ]
+        },
+        "sbdout": {
+          "direction": "output",
+          "bits": [ 16 ]
+        }
+      },
+      "cells": {
+      },
+      "netnames": {
+        "arclk": {
+          "hide_name": 0,
+          "bits": [ 2 ],
+          "attributes": {
+            "src": "/home/rqou/code/yosys/share/intel/max25_libre/cells_sim.v:65"
+          }
+        },
+        "ardin": {
+          "hide_name": 0,
+          "bits": [ 4 ],
+          "attributes": {
+            "src": "/home/rqou/code/yosys/share/intel/max25_libre/cells_sim.v:67"
+          }
+        },
+        "arshft": {
+          "hide_name": 0,
+          "bits": [ 3 ],
+          "attributes": {
+            "src": "/home/rqou/code/yosys/share/intel/max25_libre/cells_sim.v:66"
+          }
+        },
+        "bgpbusy": {
+          "hide_name": 0,
+          "bits": [ 12 ],
+          "attributes": {
+            "src": "/home/rqou/code/yosys/share/intel/max25_libre/cells_sim.v:77"
+          }
+        },
+        "busy": {
+          "hide_name": 0,
+          "bits": [ 11 ],
+          "attributes": {
+            "src": "/home/rqou/code/yosys/share/intel/max25_libre/cells_sim.v:76"
+          }
+        },
+        "drclk": {
+          "hide_name": 0,
+          "bits": [ 5 ],
+          "attributes": {
+            "src": "/home/rqou/code/yosys/share/intel/max25_libre/cells_sim.v:69"
+          }
+        },
+        "drdin": {
+          "hide_name": 0,
+          "bits": [ 7 ],
+          "attributes": {
+            "src": "/home/rqou/code/yosys/share/intel/max25_libre/cells_sim.v:71"
+          }
+        },
+        "drdout": {
+          "hide_name": 0,
+          "bits": [ 8 ],
+          "attributes": {
+            "src": "/home/rqou/code/yosys/share/intel/max25_libre/cells_sim.v:72"
+          }
+        },
+        "drshft": {
+          "hide_name": 0,
+          "bits": [ 6 ],
+          "attributes": {
+            "src": "/home/rqou/code/yosys/share/intel/max25_libre/cells_sim.v:70"
+          }
+        },
+        "erase": {
+          "hide_name": 0,
+          "bits": [ 10 ],
+          "attributes": {
+            "src": "/home/rqou/code/yosys/share/intel/max25_libre/cells_sim.v:75"
+          }
+        },
+        "osc": {
+          "hide_name": 0,
+          "bits": [ 14 ],
+          "attributes": {
+            "src": "/home/rqou/code/yosys/share/intel/max25_libre/cells_sim.v:80"
+          }
+        },
+        "oscena": {
+          "hide_name": 0,
+          "bits": [ 13 ],
+          "attributes": {
+            "src": "/home/rqou/code/yosys/share/intel/max25_libre/cells_sim.v:79"
+          }
+        },
+        "program": {
+          "hide_name": 0,
+          "bits": [ 9 ],
+          "attributes": {
+            "src": "/home/rqou/code/yosys/share/intel/max25_libre/cells_sim.v:74"
+          }
+        },
+        "sbdin": {
+          "hide_name": 0,
+          "bits": [ 15 ],
+          "attributes": {
+            "src": "/home/rqou/code/yosys/share/intel/max25_libre/cells_sim.v:82"
+          }
+        },
+        "sbdout": {
+          "hide_name": 0,
+          "bits": [ 16 ],
+          "attributes": {
+            "src": "/home/rqou/code/yosys/share/intel/max25_libre/cells_sim.v:83"
+          }
+        }
+      }
+    },
+    "maxv_io_libre": {
+      "attributes": {
+        "blackbox": 1,
+        "src": "/home/rqou/code/yosys/share/intel/max25_libre/cells_sim.v:33"
+      },
+      "ports": {
+        "padio": {
+          "direction": "inout",
+          "bits": [ 2 ]
+        },
+        "datain": {
+          "direction": "input",
+          "bits": [ 3 ]
+        },
+        "oe": {
+          "direction": "input",
+          "bits": [ 4 ]
+        },
+        "combout": {
+          "direction": "output",
+          "bits": [ 5 ]
+        }
+      },
+      "cells": {
+      },
+      "netnames": {
+        "combout": {
+          "hide_name": 0,
+          "bits": [ 5 ],
+          "attributes": {
+            "src": "/home/rqou/code/yosys/share/intel/max25_libre/cells_sim.v:38"
+          }
+        },
+        "datain": {
+          "hide_name": 0,
+          "bits": [ 3 ],
+          "attributes": {
+            "src": "/home/rqou/code/yosys/share/intel/max25_libre/cells_sim.v:36"
+          }
+        },
+        "oe": {
+          "hide_name": 0,
+          "bits": [ 4 ],
+          "attributes": {
+            "src": "/home/rqou/code/yosys/share/intel/max25_libre/cells_sim.v:37"
+          }
+        },
+        "padio": {
+          "hide_name": 0,
+          "bits": [ 2 ],
+          "attributes": {
+            "src": "/home/rqou/code/yosys/share/intel/max25_libre/cells_sim.v:34"
+          }
+        }
+      }
+    },
+    "test": {
+      "attributes": {
+        "top": 1,
+        "src": "test.v:1"
+      },
+      "ports": {
+        "a": {
+          "direction": "input",
+          "bits": [ 2 ]
+        },
+        "b": {
+          "direction": "input",
+          "bits": [ 3 ]
+        },
+        "o_and": {
+          "direction": "output",
+          "bits": [ 4 ]
+        },
+        "o_or": {
+          "direction": "output",
+          "bits": [ 5 ]
+        },
+        "o_xor": {
+          "direction": "output",
+          "bits": [ 6 ]
+        },
+        "clk": {
+          "direction": "input",
+          "bits": [ 7 ]
+        }
+      },
+      "cells": {
+        "$abc$58$auto$blifparse.cc:465:parse_blif$59": {
+          "hide_name": 1,
+          "type": "$lut",
+          "parameters": {
+            "LUT": 8,
+            "WIDTH": 2
+          },
+          "attributes": {
+          },
+          "port_directions": {
+            "A": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 2, 3 ],
+            "Y": [ 8 ]
+          }
+        },
+        "$abc$58$auto$blifparse.cc:465:parse_blif$60": {
+          "hide_name": 1,
+          "type": "$lut",
+          "parameters": {
+            "LUT": 14,
+            "WIDTH": 2
+          },
+          "attributes": {
+          },
+          "port_directions": {
+            "A": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 2, 3 ],
+            "Y": [ 9 ]
+          }
+        },
+        "$abc$58$auto$blifparse.cc:465:parse_blif$61": {
+          "hide_name": 1,
+          "type": "$lut",
+          "parameters": {
+            "LUT": 6,
+            "WIDTH": 2
+          },
+          "attributes": {
+          },
+          "port_directions": {
+            "A": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 2, 3 ],
+            "Y": [ 10 ]
+          }
+        },
+        "$auto$simplemap.cc:420:simplemap_dff$55": {
+          "hide_name": 1,
+          "type": "$_DFF_P_",
+          "parameters": {
+          },
+          "attributes": {
+            "src": "test.v:7"
+          },
+          "port_directions": {
+            "C": "input",
+            "D": "input",
+            "Q": "output"
+          },
+          "connections": {
+            "C": [ 7 ],
+            "D": [ 8 ],
+            "Q": [ 4 ]
+          }
+        },
+        "$auto$simplemap.cc:420:simplemap_dff$56": {
+          "hide_name": 1,
+          "type": "$_DFF_P_",
+          "parameters": {
+          },
+          "attributes": {
+            "src": "test.v:7"
+          },
+          "port_directions": {
+            "C": "input",
+            "D": "input",
+            "Q": "output"
+          },
+          "connections": {
+            "C": [ 7 ],
+            "D": [ 9 ],
+            "Q": [ 5 ]
+          }
+        },
+        "$auto$simplemap.cc:420:simplemap_dff$57": {
+          "hide_name": 1,
+          "type": "$_DFF_P_",
+          "parameters": {
+          },
+          "attributes": {
+            "src": "test.v:7"
+          },
+          "port_directions": {
+            "C": "input",
+            "D": "input",
+            "Q": "output"
+          },
+          "connections": {
+            "C": [ 7 ],
+            "D": [ 10 ],
+            "Q": [ 6 ]
+          }
+        }
+      },
+      "netnames": {
+        "$0\\o_and[0:0]": {
+          "hide_name": 1,
+          "bits": [ 8 ],
+          "attributes": {
+            "src": "test.v:7"
+          }
+        },
+        "$0\\o_or[0:0]": {
+          "hide_name": 1,
+          "bits": [ 9 ],
+          "attributes": {
+            "src": "test.v:7"
+          }
+        },
+        "$0\\o_xor[0:0]": {
+          "hide_name": 1,
+          "bits": [ 10 ],
+          "attributes": {
+            "src": "test.v:7"
+          }
+        },
+        "a": {
+          "hide_name": 0,
+          "bits": [ 2 ],
+          "attributes": {
+            "src": "test.v:1"
+          }
+        },
+        "b": {
+          "hide_name": 0,
+          "bits": [ 3 ],
+          "attributes": {
+            "src": "test.v:1"
+          }
+        },
+        "clk": {
+          "hide_name": 0,
+          "bits": [ 7 ],
+          "attributes": {
+            "src": "test.v:1"
+          }
+        },
+        "o_and": {
+          "hide_name": 0,
+          "bits": [ 4 ],
+          "attributes": {
+            "src": "test.v:1"
+          }
+        },
+        "o_or": {
+          "hide_name": 0,
+          "bits": [ 5 ],
+          "attributes": {
+            "src": "test.v:1"
+          }
+        },
+        "o_xor": {
+          "hide_name": 0,
+          "bits": [ 6 ],
+          "attributes": {
+            "src": "test.v:1"
+          }
+        }
+      }
+    }
+  }
+}
